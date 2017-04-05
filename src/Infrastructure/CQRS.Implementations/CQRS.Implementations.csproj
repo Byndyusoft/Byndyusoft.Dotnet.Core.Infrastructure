@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.1</TargetFramework>
+    <AssemblyName>Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementations</AssemblyName>
+    <RootNamespace>Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementations</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CQRS.Abstractions\CQRS.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>
