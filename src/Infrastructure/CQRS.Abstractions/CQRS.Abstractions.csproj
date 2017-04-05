@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.1</TargetFramework>
+    <AssemblyName>Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Abstractions</AssemblyName>
+    <RootNamespace>Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Abstractions</RootNamespace>
+  </PropertyGroup>
+
+</Project>
