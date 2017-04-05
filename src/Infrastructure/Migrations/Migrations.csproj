@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <AssemblyName>Byndyusoft.Dotnet.Core.Infrastructure.Migrations</AssemblyName>
+    <RootNamespace>Byndyusoft.Dotnet.Core.Infrastructure.Migrations</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dapper\Dapper.csproj" />
+  </ItemGroup>
+
+</Project>
