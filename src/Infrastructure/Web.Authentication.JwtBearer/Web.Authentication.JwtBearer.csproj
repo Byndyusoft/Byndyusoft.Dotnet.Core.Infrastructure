@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+    <RootNamespace>Byndyusoft.Dotnet.Core.Infrastructure.Web.Authentication.JwtBearer</RootNamespace>
+    <AssemblyName>Byndyusoft.Dotnet.Core.Infrastructure.Web.Authentication.JwtBearer</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="1.1.1" />
+  </ItemGroup>
+
+</Project>

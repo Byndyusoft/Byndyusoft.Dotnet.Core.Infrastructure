@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper", "src\Infrastructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrations", "src\Infrastructure\Migrations\Migrations.csproj", "{C33BAF89-A02D-498A-9C93-FA087995A95E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Authentication.JwtBearer", "src\Infrastructure\Web.Authentication.JwtBearer\Web.Authentication.JwtBearer.csproj", "{7CDE66B6-0802-4A6A-82C5-D44340D1B551}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C33BAF89-A02D-498A-9C93-FA087995A95E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C33BAF89-A02D-498A-9C93-FA087995A95E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C33BAF89-A02D-498A-9C93-FA087995A95E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CDE66B6-0802-4A6A-82C5-D44340D1B551}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CDE66B6-0802-4A6A-82C5-D44340D1B551}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CDE66B6-0802-4A6A-82C5-D44340D1B551}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CDE66B6-0802-4A6A-82C5-D44340D1B551}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,5 +55,6 @@ Global
 		{80371982-6627-4B83-8317-8FF0A1EC9654} = {76BD8FA9-D53C-4E9D-855F-6FC669F609EA}
 		{CCB326D5-6DBC-4F76-9816-A30105294275} = {76BD8FA9-D53C-4E9D-855F-6FC669F609EA}
 		{C33BAF89-A02D-498A-9C93-FA087995A95E} = {76BD8FA9-D53C-4E9D-855F-6FC669F609EA}
+		{7CDE66B6-0802-4A6A-82C5-D44340D1B551} = {76BD8FA9-D53C-4E9D-855F-6FC669F609EA}
 	EndGlobalSection
 EndGlobal
