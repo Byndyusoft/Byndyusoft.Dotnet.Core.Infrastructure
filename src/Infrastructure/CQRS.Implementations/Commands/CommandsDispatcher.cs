@@ -6,7 +6,7 @@
     using CommandsFactory;
 
     /// <summary>
-    /// Commands dispatcher standart implementation
+    /// Commands dispatcher standard implementation
     /// </summary>
     public class CommandsDispatcher : ICommandsDispatcher
     {
