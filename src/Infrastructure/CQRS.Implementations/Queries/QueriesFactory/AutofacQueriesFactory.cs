@@ -24,7 +24,7 @@
         }
 
         /// <summary>
-        /// Method for qsueries creation
+        /// Method for queries creation
         /// </summary>
         /// <typeparam name="TCriterion">Query criterion type</typeparam>
         /// <typeparam name="TResult">Query result type</typeparam>
