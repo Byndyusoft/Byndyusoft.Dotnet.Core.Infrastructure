@@ -1,6 +1,7 @@
-﻿namespace Web.Application.Infrastructure.Installers
+﻿namespace Byndyusoft.Dotnet.Core.Samples.Web.Application.Infrastructure.Installers
 {
     using Autofac;
+    using DataAccess.Values.Repository;
     using JetBrains.Annotations;
 
     [UsedImplicitly]
@@ -8,6 +9,7 @@
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<InMemoryRepository>().As<IValuesRepository>().SingleInstance();
         }
     }
 }

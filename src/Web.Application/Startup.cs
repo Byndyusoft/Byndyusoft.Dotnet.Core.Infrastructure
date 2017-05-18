@@ -1,12 +1,13 @@
-﻿namespace Web.Application
+﻿namespace Byndyusoft.Dotnet.Core.Samples.Web.Application
 {
     using System;
     using System.IO;
     using System.Reflection;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
-    using Byndyusoft.Dotnet.Core.Infrastructure.Web.ExceptionsHandling;
-    using Infrastructure.Extensions;
+    using Core.Infrastructure.Web.ExceptionsHandling;
+    using global::Web.Application.Infrastructure.Extensions;
+    using Infrastructure;
     using Infrastructure.Installers;
     using JetBrains.Annotations;
     using Microsoft.AspNetCore.Builder;
@@ -24,14 +25,15 @@
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IHostingEnvironment env, CommandLineArgumentsProvider commandLineArgumentsProvider)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Path.GetDirectoryName(typeof(Program).GetTypeInfo().Assembly.Location))
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: false, reloadOnChange: true)
                 .AddNLogConfig($"NLog.{env.EnvironmentName}.config")
-                .AddEnvironmentVariables();
+                .AddEnvironmentVariables()
+                .AddCommandLine(commandLineArgumentsProvider.Arguments);
 
             Configuration = builder.Build();
         }

@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8</PackageTargetFallback>
+    <AssemblyName>Byndyusoft.Dotnet.Core.Samples.Web.Application</AssemblyName>
+    <RootNamespace>Byndyusoft.Dotnet.Core.Samples.Web.Application</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -46,7 +48,11 @@
     <PackageReference Include="Swashbuckle" Version="6.0.0-beta902" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\CQRS.Abstractions\CQRS.Abstractions.csproj" />
+    <ProjectReference Include="..\Infrastructure\CQRS.Implementations\CQRS.Implementations.csproj" />
     <ProjectReference Include="..\Infrastructure\Web\Web.csproj" />
+    <ProjectReference Include="..\Web.DataAccess\Web.DataAccess.csproj" />
+    <ProjectReference Include="..\Web.Domain\Web.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.Development.json">
