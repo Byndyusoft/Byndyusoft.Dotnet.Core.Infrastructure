@@ -1,0 +1,25 @@
+﻿{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:56783/",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Web.Application": {
+      "commandName": "Project",
+      "commandLineArgs": "--environment Development --xml_docs bin\\Debug\\netcoreapp1.1\\Web.Application.xml",
+      "launchBrowser": true,
+      "launchUrl": "http://localhost:5000/swagger/ui"
+    }
+  }
+}
