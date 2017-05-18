@@ -5,6 +5,7 @@
     using System.Reflection;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
+    using Controllers.ValuesController;
     using Core.Infrastructure.Web.ExceptionsHandling;
     using global::Web.Application.Infrastructure.Extensions;
     using Infrastructure;
@@ -63,7 +64,8 @@
                                          });
 
             services
-                .AddOptions();
+                .AddOptions()
+                .Configure<ValuesControllerOptions>(Configuration.GetSection(nameof(ValuesControllerOptions)));
 
             services
                 .AddMvc()

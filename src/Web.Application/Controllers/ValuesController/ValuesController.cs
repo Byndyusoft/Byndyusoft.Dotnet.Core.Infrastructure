@@ -1,13 +1,13 @@
 ﻿namespace Byndyusoft.Dotnet.Core.Samples.Web.Application.Controllers.ValuesController
 {
     using System;
-    using System.Threading.Tasks;
     using Core.Infrastructure.CQRS.Abstractions.Commands;
     using Core.Infrastructure.CQRS.Abstractions.Queries;
     using Domain.CommandsContexts.Values;
     using Domain.Criterions.Values;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
 
     [Route("values")]
     public class ValuesController : Controller
@@ -16,7 +16,9 @@
         private readonly ICommandsDispatcher _commandsDispatcher;
         private readonly ILogger<ValuesController> _logger;
 
-        public ValuesController(IQueriesDispatcher queriesDispatcher, ICommandsDispatcher commandsDispatcher, ILogger<ValuesController> logger)
+        private readonly ValuesControllerOptions _controllerOptions;
+
+        public ValuesController(IQueriesDispatcher queriesDispatcher, ICommandsDispatcher commandsDispatcher, ILogger<ValuesController> logger, IOptionsSnapshot<ValuesControllerOptions> options)
         {
             if(queriesDispatcher == null)
                 throw new ArgumentNullException(nameof(queriesDispatcher));
@@ -24,10 +26,14 @@
                 throw new ArgumentNullException(nameof(commandsDispatcher));
             if(logger == null)
                 throw new ArgumentNullException(nameof(logger));
+            if(options == null)
+                throw new ArgumentNullException(nameof(options));
 
             _queriesDispatcher = queriesDispatcher;
             _commandsDispatcher = commandsDispatcher;
             _logger = logger;
+
+            _controllerOptions = options.Value;
         }
 
         /// <summary>
@@ -35,10 +41,10 @@
         /// </summary>
         /// <returns>Configuration values</returns>
         [HttpGet]
-        public async Task<string[]> Get()
+        public string[] Get()
         {
             _logger.LogInformation("Get values request");
-            return new[] {"test"};
+            return _controllerOptions.Values;
         }
 
         /// <summary>
