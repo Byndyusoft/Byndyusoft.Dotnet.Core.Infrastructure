@@ -20,9 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="dockerfile">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="dockerfile.prd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
