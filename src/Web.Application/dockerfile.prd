@@ -3,4 +3,4 @@ WORKDIR /app
 COPY . /app
 ENV ASPNETCORE_URLS http://*:5000
 EXPOSE 5000
-ENTRYPOINT ["dotnet", "Byndyusoft.Dotnet.Core.Samples.Web.Application.dll"]
+ENTRYPOINT ["dotnet", "Byndyusoft.Dotnet.Core.Samples.Web.Application.dll","--xml_docs","Byndyusoft.Dotnet.Core.Samples.Web.Application.xml"]
