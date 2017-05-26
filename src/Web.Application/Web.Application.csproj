@@ -7,17 +7,27 @@
     <RootNamespace>Byndyusoft.Dotnet.Core.Samples.Web.Application</RootNamespace>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp1.1\Web.Application.xml</DocumentationFile>
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
+  <Target Name="CopyDocumentationFile" AfterTargets="ComputeFilesToPublish">
+    <ItemGroup>
+      <ResolvedFileToPublish Include="@(FinalDocFile)" RelativePath="@(FinalDocFile->'%(Filename)%(Extension)')" />
+    </ItemGroup>
+  </Target>
 
   <ItemGroup>
+    <None Remove="dockerfile" />
+    <None Remove="dockerfile.prd" />
     <None Remove="NLog.Development.config" />
     <None Remove="NLog.Production.config" />
     <None Remove="NLog.Staging.config" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="dockerfile.prd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="NLog.Development.config">
       <DependentUpon>NLog.Production.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
