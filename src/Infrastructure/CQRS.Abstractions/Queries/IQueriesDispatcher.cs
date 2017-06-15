@@ -11,6 +11,6 @@
         /// <typeparam name="TResult">Query result type</typeparam>
         /// <param name="criterion">Information needed for queries execution</param>
         /// <returns>Query result</returns>
-        TResult Execute<TResult>(ICriterion criterion);
+        TResult Execute<TResult>(ICriterion<TResult> criterion);
     }
 }

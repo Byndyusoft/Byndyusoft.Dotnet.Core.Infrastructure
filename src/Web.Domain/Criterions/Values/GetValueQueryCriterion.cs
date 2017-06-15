@@ -2,7 +2,7 @@
 {
     using Infrastructure.CQRS.Abstractions.Queries;
 
-    public class GetValueQueryCriterion : ICriterion
+    public class GetValueQueryCriterion : ICriterion<string>
     {
         public int Id { get; }
 

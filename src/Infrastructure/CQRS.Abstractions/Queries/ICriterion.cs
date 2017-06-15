@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface for queries criterions marking
     /// </summary>
-    public interface ICriterion
+    public interface ICriterion<out TResult>
     {
     }
 }

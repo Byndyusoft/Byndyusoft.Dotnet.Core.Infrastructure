@@ -5,7 +5,7 @@
     /// </summary>
     /// <typeparam name="TCriterion">Query criterion type</typeparam>
     /// <typeparam name="TResult">Query result type</typeparam>
-    public interface IQuery<in TCriterion, out TResult> where TCriterion : ICriterion
+    public interface IQuery<in TCriterion, out TResult> where TCriterion : ICriterion<TResult>
     {
         /// <summary>
         /// Method for criterion execution

@@ -29,7 +29,7 @@
         /// <typeparam name="TCriterion">Query criterion type</typeparam>
         /// <typeparam name="TResult">Query result type</typeparam>
         /// <returns>Query instance</returns>
-        public IQuery<TCriterion, TResult> Create<TCriterion, TResult>() where TCriterion : ICriterion
+        public IQuery<TCriterion, TResult> Create<TCriterion, TResult>() where TCriterion : ICriterion<TResult>
         {
             return _componentContext.Resolve<IQuery<TCriterion, TResult>>();
         }

@@ -56,7 +56,7 @@
         public string Get(int id)
         {
             _logger.LogInformation("Get value request");
-            return _queriesDispatcher.Execute<string>(new GetValueQueryCriterion(id));
+            return _queriesDispatcher.Execute(new GetValueQueryCriterion(id));
         }
 
         /// <summary>
