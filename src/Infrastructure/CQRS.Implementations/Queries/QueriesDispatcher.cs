@@ -28,10 +28,10 @@
 
             _queriesFactory = queriesFactory;
 
-            Expression<Func<IQueriesFactory, IQuery<ICriterion, object>>> fakeCreateCall = x => x.Create<ICriterion, object>();
+            Expression<Func<IQueriesFactory, IQuery<ICriterion<object>, object>>> fakeCreateCall = x => x.Create<ICriterion<object>, object>();
             _createQueryGenericDefinition = ((MethodCallExpression)fakeCreateCall.Body).Method.GetGenericMethodDefinition();
 
-            Expression<Func<IQuery<ICriterion, object>, object>> fakeAskCall = x => x.Ask(null);
+            Expression<Func<IQuery<ICriterion<object>, object>, object>> fakeAskCall = x => x.Ask(null);
             _askMethodName = ((MethodCallExpression)fakeAskCall.Body).Method.Name;
         }
 
@@ -41,7 +41,7 @@
         /// <typeparam name="TResult">Query result type</typeparam>
         /// <param name="criterion">Information needed for queries execution</param>
         /// <returns>Query result</returns>
-        public TResult Execute<TResult>(ICriterion criterion)
+        public TResult Execute<TResult>(ICriterion<TResult> criterion)
         {
             var query = _createQueryGenericDefinition.MakeGenericMethod(criterion.GetType(), typeof(TResult)).Invoke(_queriesFactory, null);
             var askMethodDefinition = query.GetType().GetRuntimeMethod(_askMethodName, new[] { criterion.GetType() });

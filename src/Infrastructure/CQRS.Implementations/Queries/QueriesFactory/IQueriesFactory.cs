@@ -13,6 +13,6 @@
         /// <typeparam name="TCriterion">Query criterion type</typeparam>
         /// <typeparam name="TResult">Query result type</typeparam>
         /// <returns>Query instance</returns>
-        IQuery<TCriterion, TResult> Create<TCriterion, TResult>() where TCriterion : ICriterion;
+        IQuery<TCriterion, TResult> Create<TCriterion, TResult>() where TCriterion : ICriterion<TResult>;
     }
 }
