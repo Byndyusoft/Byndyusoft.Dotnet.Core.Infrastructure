@@ -77,6 +77,7 @@
                                     x.SerializerSettings.Formatting = Formatting.Indented;
                                     x.SerializerSettings.Converters.Add(new StringEnumConverter());
                                     x.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                                    x.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
                                 });
 
             var containerBuilder = new ContainerBuilder();
