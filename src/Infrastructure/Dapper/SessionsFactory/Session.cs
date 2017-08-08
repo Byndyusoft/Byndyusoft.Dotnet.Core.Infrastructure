@@ -42,6 +42,16 @@
             return _connection.ExecuteAsync(sql, param, _transaction, commandTimeout, commandType);
         }
 
+        public TSource ExecuteScalar<TSource>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.ExecuteScalar<TSource>(sql, param, _transaction, commandTimeout, commandType);
+        }
+
+        public Task<TSource> ExecuteScalarAsync<TSource>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.ExecuteScalarAsync<TSource>(sql, param, _transaction, commandTimeout, commandType);
+        }
+
         public void Commit()
         {
             _transaction.Commit();

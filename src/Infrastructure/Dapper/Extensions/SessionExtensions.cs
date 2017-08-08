@@ -26,5 +26,15 @@
         {
             return session.ExecuteAsync(queryObject.Sql, queryObject.QueryParams, executionOptions.CommandTimeoutSeconds);
         }
+        
+        public static TSource ExecuteScalar<TSource>(this ISession session, QueryObject queryObject, SqlExecutionOptions executionOptions = null)
+        {
+            return session.ExecuteScalar<TSource>(queryObject.Sql, queryObject.QueryParams, executionOptions?.CommandTimeoutSeconds);
+        }
+
+        public static Task<TSource> ExecuteScalarAsync<TSource>(this ISession session, QueryObject queryObject, SqlExecutionOptions executionOptions = null)
+        {
+            return session.ExecuteScalarAsync<TSource>(queryObject.Sql, queryObject.QueryParams, executionOptions?.CommandTimeoutSeconds);
+        }
     }
 }

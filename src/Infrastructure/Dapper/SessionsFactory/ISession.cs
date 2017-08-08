@@ -13,6 +13,9 @@
         int Execute(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null);
         Task<int> ExecuteAsync(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null);
 
+        TSource ExecuteScalar<TSource>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null);
+        Task<TSource> ExecuteScalarAsync<TSource>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null);
+
         void Commit();
     }
 }
