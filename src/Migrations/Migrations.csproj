@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <AssemblyName>Byndyusoft.Dotnet.Core.Samples.Migrations</AssemblyName>
+    <RootNamespace>Byndyusoft.Dotnet.Core.Samples.Migrations</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="10.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\Migrations\Migrations.csproj" />
+  </ItemGroup>
+
+</Project>
