@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\CQRS.Abstractions\CQRS.Abstractions.csproj" />
+    <ProjectReference Include="..\Infrastructure\Dapper\Dapper.csproj" />
     <ProjectReference Include="..\Web.Domain\Web.Domain.csproj" />
   </ItemGroup>
 
