@@ -1,0 +1,83 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <AssemblyName>Byndyusoft.Dotnet.Core.Samples.Jobs.Consumer</AssemblyName>
+    <RootNamespace>Byndyusoft.Dotnet.Core.Samples.Jobs.Consumer</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.Development.json" />
+    <None Remove="appsettings.json" />
+    <None Remove="appsettings.Production.json" />
+    <None Remove="appsettings.Staging.json" />
+    <None Remove="NLog.Development.config" />
+    <None Remove="NLog.Staging.config" />
+    <None Remove="NLog.Production.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.Development.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsettings.Production.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsettings.Staging.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="NLog.Development.config">
+      <DependentUpon>NLog.Production.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NLog.Production.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="NLog.Staging.config">
+      <DependentUpon>NLog.Production.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="autofac" Version="4.6.0" />
+    <PackageReference Include="autofac.extensions.dependencyinjection" Version="4.1.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="10.4.0" />
+    <PackageReference Include="microsoft.extensions.configuration.abstractions" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="1.1.2" />
+    <PackageReference Include="microsoft.extensions.configuration.fileextensions" Version="1.1.2" />
+    <PackageReference Include="microsoft.extensions.configuration.json" Version="1.1.2" />
+    <PackageReference Include="microsoft.extensions.dependencyinjection" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.2" />
+    <PackageReference Include="microsoft.extensions.options.configurationExtensions" Version="1.1.2" />
+    <PackageReference Include="Moq" Version="4.7.63" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.0.0-rtm-beta5" />
+    <PackageReference Include="NLog.MailKit" Version="1.1.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="4.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\CQRS.Implementations\CQRS.Implementations.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Dapper\Dapper.csproj" />
+    <ProjectReference Include="..\..\Web.DataAccess\Web.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="dockerfile.prd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

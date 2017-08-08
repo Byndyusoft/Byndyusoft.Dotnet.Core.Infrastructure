@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Consumer": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "SERVICE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
