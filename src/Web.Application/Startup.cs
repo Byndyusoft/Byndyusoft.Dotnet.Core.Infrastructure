@@ -1,45 +1,34 @@
 ﻿namespace Byndyusoft.Dotnet.Core.Samples.Web.Application
 {
     using System;
-    using System.IO;
     using System.Reflection;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
     using Controllers.ValuesController;
     using Core.Infrastructure.Web.ExceptionsHandling;
-    using global::Web.Application.Infrastructure.Extensions;
-    using Infrastructure;
     using Infrastructure.Installers;
     using JetBrains.Annotations;
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Serialization;
-    using NLog.Extensions.Logging;
     using NLog.Web;
     using Swashbuckle.Swagger.Model;
 
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public class Startup
     {
-        public Startup(IHostingEnvironment env, CommandLineArgumentsProvider commandLineArgumentsProvider)
+        private IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Path.GetDirectoryName(typeof(Program).GetTypeInfo().Assembly.Location))
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: false, reloadOnChange: true)
-                .AddNLogConfig($"NLog.{env.EnvironmentName}.config")
-                .AddEnvironmentVariables()
-                .AddCommandLine(commandLineArgumentsProvider.Arguments);
+            if (configuration == null)
+                throw new ArgumentNullException(nameof(configuration));
 
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
-
-        public IConfigurationRoot Configuration { get; }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
@@ -88,13 +77,8 @@
             return new AutofacServiceProvider(container);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app)
         {
-            loggerFactory
-                .AddNLog()
-                .AddConsole(Configuration.GetSection("Logging"))
-                .AddDebug();
-
             app.AddNLogWeb();
 
             app
