@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
-    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
+    <TargetFramework>netstandard1.1</TargetFramework>
     <AssemblyName>Byndyusoft.Dotnet.Core.Samples.Web.Domain</AssemblyName>
     <RootNamespace>Byndyusoft.Dotnet.Core.Samples.Web.Domain</RootNamespace>
   </PropertyGroup>

@@ -1,4 +1,4 @@
-﻿namespace Web.Application.Infrastructure.Extensions
+﻿namespace Byndyusoft.Dotnet.Core.Samples.Web.Application.Infrastructure.Extensions
 {
     using System.IO;
     using Microsoft.Extensions.Configuration;
