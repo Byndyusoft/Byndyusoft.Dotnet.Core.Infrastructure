@@ -15,7 +15,7 @@
     using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Serialization;
     using NLog.Web;
-    using Swashbuckle.Swagger.Model;
+    using Swashbuckle.AspNetCore.Swagger;
 
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public class Startup
@@ -33,24 +33,24 @@
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
 
-            services.AddSwaggerGen();
-            services.ConfigureSwaggerGen(options =>
-                                         {
-                                             options
-                                                 .SingleApiVersion(new Info
-                                                                   {
-                                                                       Version = "v1",
-                                                                       Title = "Values providing API",
-                                                                       Description = "A dummy to get configuration values",
-                                                                       TermsOfService = "None"
-                                                                   });
+            services.AddSwaggerGen(options =>
+                                   {
+                                       options
+                                           .SwaggerDoc("v1",
+                                               new Info
+                                               {
+                                                   Version = "v1",
+                                                   Title = "Values providing API",
+                                                   Description = "A dummy to get configuration values",
+                                                   TermsOfService = "None"
+                                               });
 
-                                             var xmlDocsPath = Configuration.GetValue<string>("xml_docs");
-                                             if (string.IsNullOrWhiteSpace(xmlDocsPath) == false)
-                                                 options.IncludeXmlComments(xmlDocsPath);
+                                       var xmlDocsPath = Configuration.GetValue<string>("xml_docs");
+                                       if (string.IsNullOrWhiteSpace(xmlDocsPath) == false)
+                                           options.IncludeXmlComments(xmlDocsPath);
 
-                                             options.DescribeAllEnumsAsStrings();
-                                         });
+                                       options.DescribeAllEnumsAsStrings();
+                                   });
 
             services
                 .AddOptions()
@@ -83,9 +83,12 @@
 
             app
                 .UseUnhandledExceptionsLoggingMiddleware()
-                .UseMvc()
                 .UseSwagger()
-                .UseSwaggerUi();
+                .UseSwaggerUI(options =>
+                              {
+                                  options.SwaggerEndpoint("/swagger/v1/swagger.json", "Values providing API v1");
+                              })
+                .UseMvc();
         }
     }
 }

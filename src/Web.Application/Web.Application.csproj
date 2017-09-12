@@ -50,7 +50,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
     <PackageReference Include="NLog.Extensions.Logging" Version="1.0.0-rtm-beta5" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.4.1" />
-    <PackageReference Include="Swashbuckle" Version="6.0.0-beta902" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\CQRS.Abstractions\CQRS.Abstractions.csproj" />
