@@ -1,0 +1,12 @@
+language: csharp
+env:
+  global:
+    - Configuration=Release
+    - ShortVersion=1.0.0
+    - VersionSuffix=rc1
+mono: none
+dotnet: 2.0.0
+script:
+ - set -e
+ - cd build
+ - ./build.sh
