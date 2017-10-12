@@ -6,7 +6,7 @@ Infrastructure for .NET projects was written with .NET Core
 
 ### Usage
 
-NuGet packages is  ̶g̶o̶i̶n̶g̶ ̶t̶o̶ ̶c̶o̶m̶e̶ ̶q̶u̶i̶t̶e̶ ̶s̶o̶o̶n is already here!
+NuGet packages is already here!
 
 ### Contents
 
