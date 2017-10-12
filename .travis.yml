@@ -4,6 +4,7 @@ matrix:
     - os: linux
     - os: osx
       osx_image: xcode8.3
+      env: HOMEBREW_NO_AUTO_UPDATE=1
 env:
   global:
     - Configuration=Release
