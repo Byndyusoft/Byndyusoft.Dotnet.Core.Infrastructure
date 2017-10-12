@@ -1,9 +1,4 @@
 language: csharp
-matrix:
-  include:
-    - os: linux
-    - os: osx
-      osx_image: xcode8.3
 env:
   global:
     - Configuration=Release
@@ -11,8 +6,6 @@ env:
     - VersionSuffix=rc1
 mono: none
 dotnet: 2.0.0
-before_install:
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rvm install ruby-2.3.3 && rvm --default use 2.3.3; fi
 script:
  - set -e
  - cd build
