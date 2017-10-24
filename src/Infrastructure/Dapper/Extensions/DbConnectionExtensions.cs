@@ -27,5 +27,15 @@
         {
             return connection.ExecuteAsync(queryObject.Sql, queryObject.QueryParams, commandTimeout: executionOptions?.CommandTimeoutSeconds);
         }
+
+        public static TSource ExecuteScalar<TSource>(this IDbConnection connection, QueryObject queryObject, SqlExecutionOptions executionOptions = null)
+        {
+            return connection.ExecuteScalar<TSource>(queryObject.Sql, queryObject.QueryParams, commandTimeout: executionOptions?.CommandTimeoutSeconds);
+        }
+
+        public static Task<TSource> ExecuteScalarAsync<TSource>(this IDbConnection connection, QueryObject queryObject, SqlExecutionOptions executionOptions = null)
+        {
+            return connection.ExecuteScalarAsync<TSource>(queryObject.Sql, queryObject.QueryParams, commandTimeout: executionOptions?.CommandTimeoutSeconds);
+        }
     }
 }
