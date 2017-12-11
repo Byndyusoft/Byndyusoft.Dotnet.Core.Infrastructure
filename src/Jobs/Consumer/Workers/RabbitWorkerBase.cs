@@ -3,7 +3,6 @@
     using System;
     using System.Text;
     using System.Threading;
-    using Infrastructure.CQRS.Abstractions.Commands;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Newtonsoft.Json;
@@ -12,21 +11,17 @@
 
     public abstract class RabbitWorkerBase
     {
-        protected ILogger<RabbitWorkerBase> Logger;
-        protected ICommandsDispatcher _commandsDispatcher;
-        protected ManualResetEvent waitHandle;
-        protected bool aborted;
+        private readonly ILogger<RabbitWorkerBase> logger;
+        private readonly ManualResetEvent waitHandle;
         private readonly TimeSpan ReconectTimeout = TimeSpan.FromSeconds(5);
-        protected string queue;
-        protected bool resendErrors;
-        private ConnectionFactory ConnectionFactory;
-        private Thread thread;
+        private readonly string queueName;
+        private readonly ConnectionFactory connectionFactory;
+        private readonly Thread thread;
 
-        protected RabbitWorkerBase(ILogger<RabbitWorkerBase> logger, ICommandsDispatcher commandsDispatcher, IOptions<RabbitConnectionsFactoryOptions> options, string queue)
+        protected RabbitWorkerBase(ILogger<RabbitWorkerBase> logger, IOptions<RabbitConnectionsFactoryOptions> options, string queueName)
         {
-            Logger = logger;
-            _commandsDispatcher = commandsDispatcher;
-            ConnectionFactory = new ConnectionFactory
+            this.logger = logger;
+            connectionFactory = new ConnectionFactory
                                 {
                                     Endpoint = new AmqpTcpEndpoint(options.Value.Endpoint),
                                     UserName = options.Value.UserName,
@@ -35,7 +30,7 @@
                                     NetworkRecoveryInterval = ReconectTimeout
                                 };
             waitHandle = new ManualResetEvent(false);
-            this.queue = queue;
+            this.queueName = queueName;
             thread = new Thread(Connect) { IsBackground = false };
         }
 
@@ -55,13 +50,13 @@
 
         private bool CreateConnection()
         {
-            Logger.LogInformation("Start " + GetType().Name);
+            logger.LogInformation("Start " + GetType().Name);
             try
             {
-                using (var connection = ConnectionFactory.CreateConnection())
+                using (var connection = connectionFactory.CreateConnection())
                 using (var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare(queue: queue,
+                    channel.QueueDeclare(queue: queueName,
                         durable: true,
                         exclusive: false,
                         autoDelete: false,
@@ -71,7 +66,7 @@
 
                     var consumer = new EventingBasicConsumer(channel);
                     consumer.Received += ConsumerOnReceived;
-                    channel.BasicConsume(queue: queue,
+                    channel.BasicConsume(queue: queueName,
                         noAck: false,
                         consumer: consumer);
 
@@ -81,7 +76,7 @@
             }
             catch (Exception e)
             {
-                Logger.LogError(0, e, "Unable create rabbit mq connection");
+                logger.LogError(0, e, "Unable create rabbit mq connection");
             }
             return false;
         }
@@ -107,14 +102,11 @@
                 }
                 catch (Exception e)
                 {
-                    Logger.LogError(0, e, $"Failed proccess message {message} from queue {queue}, attempt # {i + 1}");
+                    logger.LogError(0, e, $"Failed proccess message {message} from queue {queueName}, attempt # {i + 1}");
 
                     ResendToErrors(ea.Body, message, e.Message, parsed);
                 }
             }
-
-            if (aborted)
-                return;
 
             try
             {
@@ -122,20 +114,20 @@
             }
             catch (Exception e)
             {
-                Logger.LogError(0, e, $"Failed acknowledge message {message} from queue {queue}");
+                logger.LogError(0, e, $"Failed acknowledge message {message} from queue {queueName}");
                 throw;
             }
         }
 
         private void ResendToErrors(byte[] body, string message, string exceptionMessage, bool parsed)
         {
-            string errorQueue = "errors." + queue;
+            string errorQueue = "errors." + queueName;
             byte[] errorBody;
             if (parsed)
             {
                 var json = JsonConvert.SerializeObject(new
                                                        {
-                                                           SourceQueue = queue,
+                                                           SourceQueue = queueName,
                                                            ExceptionMessage = exceptionMessage,
                                                            Message = message
                                                        });
@@ -144,7 +136,7 @@
             else
                 errorBody = body;
 
-            using (var connection = ConnectionFactory.CreateConnection())
+            using (var connection = connectionFactory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
                 channel.QueueDeclare(queue: errorQueue,
