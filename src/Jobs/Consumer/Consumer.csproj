@@ -52,8 +52,9 @@
   <ItemGroup>
     <PackageReference Include="autofac.extensions.dependencyinjection" Version="4.1.0" />
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
-    <PackageReference Include="microsoft.extensions.configuration.abstractions" Version="1.1.2" />
+    <PackageReference Include="microsoft.extensions.configuration.abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.0" />
     <PackageReference Include="microsoft.extensions.configuration.fileextensions" Version="1.1.2" />
     <PackageReference Include="microsoft.extensions.configuration.json" Version="1.1.2" />
     <PackageReference Include="microsoft.extensions.dependencyinjection" Version="1.1.1" />

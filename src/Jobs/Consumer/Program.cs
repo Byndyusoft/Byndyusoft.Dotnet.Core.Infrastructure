@@ -22,7 +22,7 @@
 
         static void Main(string[] args)
         {
-            BuildConfiguration();
+            BuildConfiguration(args);
             ConfigureDependencies();
             ConfigureLogging();
 
@@ -37,15 +37,20 @@
                 ;
         }
 
-        private static void BuildConfiguration()
+        private static void BuildConfiguration(string[] args)
         {
-            var environment = Environment.GetEnvironmentVariable("SERVICE_ENVIRONMENT");
+            var environmentConfiguration = new ConfigurationBuilder()
+                .AddEnvironmentVariables("SERVICE_")
+                .AddCommandLine(args)
+                .Build();
+
+            var environmentName = environmentConfiguration["environment"];
 
             _configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile($"appsettings.{environment}.json", false, true)
-                .AddNLogConfig($"NLog.{environment}.config")
+                .AddJsonFile($"appsettings.{environmentName}.json", false, true)
+                .AddNLogConfig($"NLog.{environmentName}.config")
                 .Build();
 
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
