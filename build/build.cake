@@ -14,7 +14,7 @@ var version = HasArgument("ShortVersion") ? Argument<string>("ShortVersion") : E
 version = !string.IsNullOrWhiteSpace(version) ? version : "1.0.0";
 var assemblyVersion = $"{version}.{buildNumber}";
 var versionSuffix = HasArgument("VersionSuffix") ? Argument<string>("VersionSuffix") : EnvironmentVariable("VersionSuffix");
-var packageVersion = version + (!string.IsNullOrWhiteSpace(versionSuffix) ? $"-{versionSuffix}-build{buildNumber}" : "");
+var packageVersion = version + (!string.IsNullOrWhiteSpace(versionSuffix) ? $"-{versionSuffix}-build{buildNumber}" : ".{buildNumber}");
  
 var artifactsDirectory = MakeAbsolute(Directory("./artifacts"));
  
