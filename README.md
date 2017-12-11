@@ -1,4 +1,4 @@
-## Byndyusoft.Dotnet.Core.Infrastructure
+## Byndyusoft.Dotnet.Core.Infrastructure [![Build status](https://ci.appveyor.com/api/projects/status/8vkjd74n45hk9v2l?svg=true)](https://ci.appveyor.com/project/razonrus/byndyusoft-dotnet-core-infrastructure)
 
 ### Description
 
@@ -6,15 +6,15 @@ Infrastructure for .NET projects was written with .NET Core
 
 ### Usage
 
-NuGet packages is going to come quite soon
+NuGet packages is already here!
 
 ### Contents
 
-Package  | Description 
---------| -------- | 
-Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Abstractions | Abstractions of the CQRS pattern 
-Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementation | Implementation of the CQRS pattern  
-Byndyusoft.Dotnet.Core.Infrastructure.Dapper | Helpers and extensions for Dapper
-Byndyusoft.Dotnet.Core.Infrastructure.Web | Base classes for WebApi creation 
-Byndyusoft.Dotnet.Core.Infrastructure.Web.Authentication.JwtBearer | Authentication primitives for Jwt Bearer tokens
-Byndyusoft.Dotnet.Core.Infrastructure.Migrations | Primitives for environment migration
+Package  | Description | NuGet
+--------| -------- | -------- 
+[Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Abstractions](https://www.nuget.org/packages/Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Abstractions)  | Abstractions of the CQRS pattern | [![NuGet version](https://badge.fury.io/nu/Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Abstractions.svg)](https://badge.fury.io/nu/Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Abstractions)
+[Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementation](https://www.nuget.org/packages/Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementations) | Implementation of the CQRS pattern | [![NuGet version](https://badge.fury.io/nu/Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementations.svg)](https://badge.fury.io/nu/Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementations)
+[Byndyusoft.Dotnet.Core.Infrastructure.Dapper](https://www.nuget.org/packages/Byndyusoft.Dotnet.Core.Infrastructure.Dapper) | Helpers and extensions for Dapper | [![NuGet version](https://badge.fury.io/nu/Byndyusoft.Dotnet.Core.Infrastructure.Dapper.svg)](https://badge.fury.io/nu/Byndyusoft.Dotnet.Core.Infrastructure.Dapper)
+[Byndyusoft.Dotnet.Core.Infrastructure.Web](https://www.nuget.org/packages/Byndyusoft.Dotnet.Core.Infrastructure.Web) | Base classes for WebApi creation | [![NuGet version](https://badge.fury.io/nu/Byndyusoft.Dotnet.Core.Infrastructure.Web.svg)](https://badge.fury.io/nu/Byndyusoft.Dotnet.Core.Infrastructure.Web)
+[Byndyusoft.Dotnet.Core.Infrastructure.Web.Authentication.JwtBearer](https://www.nuget.org/packages/Byndyusoft.Dotnet.Core.Infrastructure.Web.Authentication.JwtBearer) | Authentication primitives for Jwt Bearer tokens | [![NuGet version](https://badge.fury.io/nu/Byndyusoft.Dotnet.Core.Infrastructure.Web.Authentication.JwtBearer.svg)](https://badge.fury.io/nu/Byndyusoft.Dotnet.Core.Infrastructure.Web.Authentication.JwtBearer)
+[Byndyusoft.Dotnet.Core.Infrastructure.Migrations](https://www.nuget.org/packages/Byndyusoft.Dotnet.Core.Infrastructure.Migrations) | Primitives for environment migration | [![NuGet version](https://badge.fury.io/nu/Byndyusoft.Dotnet.Core.Infrastructure.Migrations.svg)](https://badge.fury.io/nu/Byndyusoft.Dotnet.Core.Infrastructure.Migrations)

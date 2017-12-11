@@ -17,9 +17,9 @@
     },
     "Web.Application": {
       "commandName": "Project",
-      "commandLineArgs": "--environment Development --xml_docs bin\\Debug\\netcoreapp1.1\\Byndyusoft.Dotnet.Core.Samples.Web.Application.xml",
+      "commandLineArgs": "--environment Development --xml_docs bin\\Debug\\netcoreapp2.0\\Byndyusoft.Dotnet.Core.Samples.Web.Application.xml",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000/swagger/ui"
+      "launchUrl": "http://localhost:5000/swagger"
     }
   }
 }
