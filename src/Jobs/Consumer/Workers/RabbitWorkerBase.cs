@@ -66,9 +66,9 @@
 
                     var consumer = new EventingBasicConsumer(channel);
                     consumer.Received += ConsumerOnReceived;
-                    channel.BasicConsume(queue: queueName,
-                        noAck: false,
-                        consumer: consumer);
+                    channel.BasicConsume(queueName,
+                        false,
+                        consumer);
 
                     waitHandle.WaitOne();
                 }
