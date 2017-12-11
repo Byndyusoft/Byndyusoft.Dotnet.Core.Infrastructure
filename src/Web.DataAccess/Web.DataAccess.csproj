@@ -1,17 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Byndyusoft.Dotnet.Core.Samples.Web.DataAccess</AssemblyName>
     <RootNamespace>Byndyusoft.Dotnet.Core.Samples.Web.DataAccess</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="11.0.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\CQRS.Abstractions\CQRS.Abstractions.csproj" />
+    <ProjectReference Include="..\Infrastructure\Dapper\Dapper.csproj" />
     <ProjectReference Include="..\Web.Domain\Web.Domain.csproj" />
   </ItemGroup>
 

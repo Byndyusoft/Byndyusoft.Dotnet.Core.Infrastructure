@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Threading.Tasks;
-    using Dapper;
     using global::Dapper;
 
     public static class DbConnectionExtensions
