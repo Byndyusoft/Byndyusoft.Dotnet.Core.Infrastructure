@@ -5,8 +5,7 @@ branches:
 image: Visual Studio 2017
 configuration: Release
 environment:
-  VersionSuffix: rc1
-  ShortVersion: 1.0.0
+  ShortVersion: 1.0.1
 nuget:
   project_feed: true
   disable_publish_on_pr: true
