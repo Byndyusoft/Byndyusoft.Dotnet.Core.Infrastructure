@@ -10,7 +10,7 @@ namespace Byndyusoft.Dotnet.Core.Samples.Jobs.Consumer.Installers
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<SqlConnectionsFactory>().As<IDbConnectionsFactory>().SingleInstance();
+            builder.RegisterType<MsSqlConnectionsFactory>().As<IDbConnectionsFactory>().SingleInstance();
             builder.RegisterType<SessionsFactory>().As<ISessionsFactory>().SingleInstance();
         }
     }

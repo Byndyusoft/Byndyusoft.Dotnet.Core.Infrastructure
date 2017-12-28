@@ -2,14 +2,13 @@
 {
     using System;
     using System.Data;
-    using System.Data.SqlClient;
     using Microsoft.Extensions.Options;
 
-    public class SqlConnectionsFactory : IDbConnectionsFactory
+    public abstract class SqlConnectionsFactoryBase : IDbConnectionsFactory
     {
-        private readonly SqlConnectionsFactoryOptions _options;
+        protected readonly SqlConnectionsFactoryOptions _options;
 
-        public SqlConnectionsFactory(IOptions<SqlConnectionsFactoryOptions> options)
+        protected SqlConnectionsFactoryBase(IOptions<SqlConnectionsFactoryOptions> options)
         {
             if (options == null)
                 throw new ArgumentNullException(nameof(options));
@@ -21,9 +20,11 @@
 
         public IDbConnection Create()
         {
-            var sqlConnection = new SqlConnection(_options.SqlServer);
+            var sqlConnection = NewSqlConnection();
             sqlConnection.Open();
             return sqlConnection;
         }
+
+        protected abstract IDbConnection NewSqlConnection();
     }
 }
