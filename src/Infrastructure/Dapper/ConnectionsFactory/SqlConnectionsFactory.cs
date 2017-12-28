@@ -4,11 +4,11 @@
     using System.Data;
     using Microsoft.Extensions.Options;
 
-    public abstract class SqlConnectionsFactoryBase : IDbConnectionsFactory
+    public class SqlConnectionsFactory<T> : IDbConnectionsFactory where T : IDbConnection
     {
         protected readonly SqlConnectionsFactoryOptions _options;
 
-        protected SqlConnectionsFactoryBase(IOptions<SqlConnectionsFactoryOptions> options)
+        protected SqlConnectionsFactory(IOptions<SqlConnectionsFactoryOptions> options)
         {
             if (options == null)
                 throw new ArgumentNullException(nameof(options));
@@ -25,6 +25,9 @@
             return sqlConnection;
         }
 
-        protected abstract IDbConnection NewSqlConnection();
+        protected virtual IDbConnection NewSqlConnection()
+        {
+            return (T) Activator.CreateInstance(typeof(T), _options.SqlServer);
+        }
     }
 }

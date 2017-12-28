@@ -1,5 +1,6 @@
 namespace Byndyusoft.Dotnet.Core.Samples.Web.Application.Infrastructure.Installers
 {
+    using System.Data.SqlClient;
     using Autofac;
     using Core.Infrastructure.Dapper.ConnectionsFactory;
     using Core.Infrastructure.Dapper.SessionsFactory;
@@ -10,7 +11,7 @@ namespace Byndyusoft.Dotnet.Core.Samples.Web.Application.Infrastructure.Installe
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<MsSqlConnectionsFactory>().As<IDbConnectionsFactory>().SingleInstance();
+            builder.RegisterType<SqlConnectionsFactory<SqlConnection>>().As<IDbConnectionsFactory>().SingleInstance();
             builder.RegisterType<SessionsFactory>().As<ISessionsFactory>().SingleInstance();
         }
     }
