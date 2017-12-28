@@ -1,6 +1,5 @@
 ﻿namespace Byndyusoft.Dotnet.Core.Samples.Jobs.Consumer
 {
-    using System;
     using System.IO;
     using System.Reflection;
     using Autofac;
