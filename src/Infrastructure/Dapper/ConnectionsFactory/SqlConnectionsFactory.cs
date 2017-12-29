@@ -8,7 +8,7 @@
     {
         protected readonly SqlConnectionsFactoryOptions _options;
 
-        protected SqlConnectionsFactory(IOptions<SqlConnectionsFactoryOptions> options)
+        public SqlConnectionsFactory(IOptions<SqlConnectionsFactoryOptions> options)
         {
             if (options == null)
                 throw new ArgumentNullException(nameof(options));
