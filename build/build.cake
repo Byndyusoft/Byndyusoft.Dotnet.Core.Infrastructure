@@ -28,7 +28,7 @@ Task("Clean")
     .IsDependentOn("Clean")
     .Does(() =>
     {
-        var projects = GetFiles("../src/**/*.csproj").Concat(GetFiles("../test/**/*.csproj"));
+        var projects = GetFiles("../src/**/*.csproj").Concat(GetFiles("../tests/**/*.csproj"));
         foreach(var project in projects)
         {
            DotNetCoreBuild(
@@ -47,7 +47,7 @@ Task("Test")
     .IsDependentOn("Build")
     .Does(() =>
     {
-        var projects = GetFiles("../test/**/*.csproj");
+        var projects = GetFiles("../tests/**/*.csproj");
         foreach(var project in projects)
         {
             DotNetCoreTool(
