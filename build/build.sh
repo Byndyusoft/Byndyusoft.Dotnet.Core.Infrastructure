@@ -35,7 +35,7 @@ rm -rf tmp
 CAKE_PATH=$(find "$TOOLS_DIR" -name Cake.dll | sort -r | head -1)
 
 if [ ! -f "$DOTNET_PATH" ]; then
-    curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 1.0.8 --shared-runtime --install-dir "$CLI_DIR" --no-path
+    curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 1.0.9 --shared-runtime --install-dir "$CLI_DIR" --no-path
 fi
 
 if $SHOW_VERSION; then
