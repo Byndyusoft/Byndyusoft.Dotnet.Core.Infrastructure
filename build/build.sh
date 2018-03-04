@@ -2,8 +2,6 @@
 
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 TOOLS_DIR=$SCRIPT_DIR/tools
-CLI_DIR=$SCRIPT_DIR/cli
-DOTNET_PATH=$CLI_DIR/dotnet
 TEMP_DIR=$SCRIPT_DIR/tmp
 TEMP_PROJECT=$TEMP_DIR/tmp.csproj
 
@@ -34,12 +32,8 @@ dotnet add "$TEMP_PROJECT" package --package-directory "$TOOLS_DIR" Cake.CoreCLR
 rm -rf tmp
 CAKE_PATH=$(find "$TOOLS_DIR" -name Cake.dll | sort -r | head -1)
 
-if [ ! -f "$DOTNET_PATH" ]; then
-    curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 1.0.9 --shared-runtime --install-dir "$CLI_DIR" --no-path
-fi
-
 if $SHOW_VERSION; then
-    exec "$DOTNET_PATH" "$CAKE_PATH" --version
+    dotnet "$CAKE_PATH" --version
 else
-    exec "$DOTNET_PATH" "$CAKE_PATH" $SCRIPT --nuget_useinprocessclient=true --verbosity=$VERBOSITY --configuration=$CONFIGURATION --target=$TARGET $DRYRUN "${SCRIPT_ARGUMENTS[@]}"
+    dotnet "$CAKE_PATH" $SCRIPT --nuget_useinprocessclient=true --settings_skipverification=true --verbosity=$VERBOSITY --configuration=$CONFIGURATION --target=$TARGET $DRYRUN "${SCRIPT_ARGUMENTS[@]}"
 fi
