@@ -64,7 +64,7 @@ VALUES (@Version)",
 				session.Commit();
 			}
 
-			var newMigrations = _migrations.Where(x => appliedVersions.Contains(x.Version) == false).ToArray();
+			var newMigrations = _migrations.Where(x => appliedVersions.Contains(x.Version) == false).OrderBy(k => k.Version).ToArray();
 			foreach (var newMigration in newMigrations)
 				using (var session = _sessionsFactory.Create())
 				{
