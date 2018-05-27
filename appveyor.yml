@@ -16,7 +16,7 @@ skip_commits:
   - LICENSE
   - README.md
   - .travis.yml
-  - WebInfrastructure.sln.DotSettings
+  - Dotnet.Core.Infrastructure.sln.DotSettings
 for:
   -
     matrix:
