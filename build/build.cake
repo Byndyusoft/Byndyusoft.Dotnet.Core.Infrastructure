@@ -73,6 +73,7 @@ Task("Pack")
                 new DotNetCorePackSettings()
                 {
                     Configuration = configuration,
+                    NoRestore = true,
                     NoBuild = true,
                     OutputDirectory = artifactsDirectory,
                     IncludeSymbols = true,
