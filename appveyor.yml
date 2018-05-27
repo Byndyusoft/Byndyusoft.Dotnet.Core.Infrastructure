@@ -1,19 +1,39 @@
 version: $(ShortVersion).{build}
-branches:
-  only:
-  - master
-image: Visual Studio 2017
+image:
+- Visual Studio 2017
+- Ubuntu
 configuration: Release
 environment:
   ShortVersion: 1.0.1
 nuget:
   project_feed: true
   disable_publish_on_pr: true
-build_script:
-- ps: >-
-    cd build
-
-    .\build.ps1
 artifacts:
 - path: build\artifacts\*.nupkg
 deploy: off
+skip_commits:
+  files:
+  - LICENSE
+  - README.md
+  - .travis.yml
+  - WebInfrastructure.sln.DotSettings
+for:
+  -
+    matrix:
+      only:
+        - image: Visual Studio 2017
+    build_script:
+      - ps: >-
+          cd build
+
+          .\build.ps1
+        
+  -
+    matrix:
+      only:
+        - image: Ubuntu
+    build_script:
+      - sh: >-
+          cd build
+
+          ./build.sh
