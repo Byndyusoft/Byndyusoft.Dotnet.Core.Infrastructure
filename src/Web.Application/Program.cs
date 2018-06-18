@@ -1,6 +1,7 @@
 ﻿namespace Byndyusoft.Dotnet.Core.Samples.Web.Application
 {
     using System.IO;
+    using Autofac.Extensions.DependencyInjection;
     using Infrastructure.Extensions;
     using JetBrains.Annotations;
     using Microsoft.AspNetCore.Hosting;
@@ -15,6 +16,7 @@
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseIISIntegration()
+                .ConfigureServices(services => services.AddAutofac())
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseConfiguration(new ConfigurationBuilder().AddCommandLine(args).Build())
                 .ConfigureAppConfiguration(

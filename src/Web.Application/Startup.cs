@@ -3,7 +3,6 @@
     using System;
     using System.Reflection;
     using Autofac;
-    using Autofac.Extensions.DependencyInjection;
     using Controllers.ValuesController;
     using Core.Infrastructure.Web.ExceptionsHandling;
     using Infrastructure.Installers;
@@ -30,7 +29,7 @@
             Configuration = configuration;
         }
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
 
             services.AddSwaggerGen(options =>
@@ -68,13 +67,11 @@
                                     x.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                                     x.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
                                 });
+        }
 
-            var containerBuilder = new ContainerBuilder();
-            containerBuilder.Populate(services);
+        public void ConfigureContainer(ContainerBuilder containerBuilder)
+        {
             containerBuilder.RegisterAssemblyModules(typeof(ServicesInstaller).GetTypeInfo().Assembly);
-            var container = containerBuilder.Build();
-
-            return new AutofacServiceProvider(container);
         }
 
         public void Configure(IApplicationBuilder app)
