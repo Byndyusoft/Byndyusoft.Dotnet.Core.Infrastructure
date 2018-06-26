@@ -32,13 +32,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		dockerfile = dockerfile
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "tests\Tests\Tests.csproj", "{6AACD164-51E5-4411-86AB-623CEF468C76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "tests\Tests\Tests.csproj", "{6AACD164-51E5-4411-86AB-623CEF468C76}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migrations", "src\Migrations\Migrations.csproj", "{D2FCE7F0-B964-446C-9748-C81DD20F806D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jobs", "Jobs", "{1222E1EF-03F9-40FC-B247-DC05FEDAF5D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consumer", "src\Jobs\Consumer\Consumer.csproj", "{FBA53287-CDE7-4620-919B-44BB0BD72F0E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Validation.Fluent", "Web.Validation.Fluent\Web.Validation.Fluent.csproj", "{67E2790C-0FB9-4874-9861-DBDFDEA30DFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Validation.Fluent.Tests", "tests\Web.Validation.Fluent.Tests\Web.Validation.Fluent.Tests.csproj", "{FAEE6539-9481-4EB7-82A0-F9FA1C81E627}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Validation.Fluent.TestApplication", "tests\Web.Validation.Fluent.TestApplication\Web.Validation.Fluent.TestApplication.csproj", "{6B8D0AC8-96BC-4EB3-BB0E-3BBB239B7B4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,6 +100,18 @@ Global
 		{FBA53287-CDE7-4620-919B-44BB0BD72F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBA53287-CDE7-4620-919B-44BB0BD72F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBA53287-CDE7-4620-919B-44BB0BD72F0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67E2790C-0FB9-4874-9861-DBDFDEA30DFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67E2790C-0FB9-4874-9861-DBDFDEA30DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67E2790C-0FB9-4874-9861-DBDFDEA30DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67E2790C-0FB9-4874-9861-DBDFDEA30DFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAEE6539-9481-4EB7-82A0-F9FA1C81E627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAEE6539-9481-4EB7-82A0-F9FA1C81E627}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAEE6539-9481-4EB7-82A0-F9FA1C81E627}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAEE6539-9481-4EB7-82A0-F9FA1C81E627}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B8D0AC8-96BC-4EB3-BB0E-3BBB239B7B4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B8D0AC8-96BC-4EB3-BB0E-3BBB239B7B4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B8D0AC8-96BC-4EB3-BB0E-3BBB239B7B4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B8D0AC8-96BC-4EB3-BB0E-3BBB239B7B4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,5 +131,11 @@ Global
 		{D2FCE7F0-B964-446C-9748-C81DD20F806D} = {E547DC46-5195-40B7-BB5B-CE9F5EE770BA}
 		{1222E1EF-03F9-40FC-B247-DC05FEDAF5D2} = {E547DC46-5195-40B7-BB5B-CE9F5EE770BA}
 		{FBA53287-CDE7-4620-919B-44BB0BD72F0E} = {1222E1EF-03F9-40FC-B247-DC05FEDAF5D2}
+		{67E2790C-0FB9-4874-9861-DBDFDEA30DFA} = {76BD8FA9-D53C-4E9D-855F-6FC669F609EA}
+		{FAEE6539-9481-4EB7-82A0-F9FA1C81E627} = {2E48BF8E-CF3E-4752-97AD-9DB6485CC700}
+		{6B8D0AC8-96BC-4EB3-BB0E-3BBB239B7B4C} = {2E48BF8E-CF3E-4752-97AD-9DB6485CC700}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C0C41DEB-D126-48B9-9046-03F17B65298E}
 	EndGlobalSection
 EndGlobal
