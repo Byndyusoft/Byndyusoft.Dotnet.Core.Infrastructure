@@ -30,13 +30,22 @@ namespace Web.Validation.Fluent
         private ValidationErrorDto CreateErrorFromModelState(ModelStateDictionary modelStateDictionary)
         {
             var criticalModelState = modelStateDictionary.Where(x => x.Value.Errors != null && x.Value.Errors.Any())
-                .ToDictionary(
-                    x => GetPropertyPathWithoutDtoName(x.Key), 
-                    x => x.Value.Errors.First().ErrorMessage); //$"The {x} is missing or has invalid format"
+                .Select(x =>
+                        {
+                            var errorMessage = x.Value.Errors.First().ErrorMessage;
+                            return new
+                                   {
+                                       Key = GetPropertyPathWithoutDtoName(x.Key),
+                                       Value = string.IsNullOrEmpty(errorMessage) 
+                                        ? "Field is missing or has invalid format"
+                                        : errorMessage
+                            };
+                        })
+                        .ToArray();
 
             return new ValidationErrorDto
                    {
-                       Message = criticalModelState.SingleOrDefault(x => x.Key == "").Value,
+                       Message = criticalModelState.SingleOrDefault(x => x.Key == "")?.Value,
                        Data = criticalModelState.Where(x => x.Key != "").ToDictionary(x => x.Key, x => x.Value)
                    };
         }
@@ -51,10 +60,7 @@ namespace Web.Validation.Fluent
                     keyWithDtoName = keyWithDtoName.Remove(keyWithDtoName.Length - suffix.Length);
             }
 
-            if (!keyWithDtoName.Contains('.'))
-                return keyWithDtoName;
-
-            return string.Join(".", keyWithDtoName.Split('.').Skip(1));
+            return keyWithDtoName;
         }
 
         protected override IActionResult CreateErrorFromValidationResult(ActionExecutingContext actionContext, ValidationResult validationResult)

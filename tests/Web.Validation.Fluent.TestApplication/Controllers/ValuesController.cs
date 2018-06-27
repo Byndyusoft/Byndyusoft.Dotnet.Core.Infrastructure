@@ -20,9 +20,10 @@ namespace Web.Validation.Fluent.TestApplication.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
+        [Validation]
         public string Get(int id)
         {
-            return "value";
+            return "id";
         }
 
         // POST api/values
@@ -34,9 +35,11 @@ namespace Web.Validation.Fluent.TestApplication.Controllers
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPost("composite")]
+        [Validation(typeof(CompositeDtoValidator))]
+        public void Composite([FromBody]CompositeDto dto)
         {
+            
         }
 
         // DELETE api/values/5
@@ -58,6 +61,21 @@ namespace Web.Validation.Fluent.TestApplication.Controllers
         {
             RuleFor(x => x.First).NotNull();
             RuleFor(x => x.Second).NotEqual(0);
+        }
+    }
+
+    public class CompositeDto
+    {
+        public int Id { get; set; }
+        public ValueCreateDto Value { get; set; }
+    }
+
+    public class CompositeDtoValidator : AbstractValidator<CompositeDto>
+    {
+        public CompositeDtoValidator()
+        {
+            RuleFor(x => x.Id).GreaterThan(0);
+            RuleFor(x => x.Value).SetValidator(new ValueCreateDtoValidator());
         }
     }
 }
