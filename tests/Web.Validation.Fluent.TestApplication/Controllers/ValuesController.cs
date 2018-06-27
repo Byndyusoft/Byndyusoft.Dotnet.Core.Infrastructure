@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Validation.Fluent.TestApplication.Controllers
 {
+    using FluentValidation;
+
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
@@ -25,8 +27,10 @@ namespace Web.Validation.Fluent.TestApplication.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        [Validation(typeof(ValueCreateDtoValidator))]
+        public string Post([FromBody]ValueCreateDto dto)
         {
+            return dto.First + dto.Second;
         }
 
         // PUT api/values/5
@@ -39,6 +43,21 @@ namespace Web.Validation.Fluent.TestApplication.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+    }
+
+    public class ValueCreateDto
+    {
+        public string First { get; set; }
+        public long Second{ get; set; }
+    }
+
+    public class ValueCreateDtoValidator : AbstractValidator<ValueCreateDto>
+    {
+        public ValueCreateDtoValidator()
+        {
+            RuleFor(x => x.First).NotNull();
+            RuleFor(x => x.Second).NotEqual(0);
         }
     }
 }
