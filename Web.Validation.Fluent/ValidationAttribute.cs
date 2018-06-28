@@ -3,62 +3,81 @@
 namespace Web.Validation.Fluent
 {
     using System.Linq;
-    using FluentValidation.Results;
+    using FluentValidation;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Controllers;
     using Microsoft.AspNetCore.Mvc.Filters;
-    using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-    public class ValidationAttribute : ValidationBaseAttribute
+
+    public class ValidationAttribute : ActionFilterAttribute
     {
-        public ValidationAttribute()
-        {
-            
-        }
+        private readonly Type bodyValidatorType;
+        private readonly IFluentValidationResponseStrategy defaultResponseStratgy;
 
         public ValidationAttribute(Type bodyValidatorType)
-            : base(bodyValidatorType)
+            : this()
         {
+            if (typeof(IValidator).IsAssignableFrom(bodyValidatorType) == false)
+                throw new ArgumentException("bodyValidatorType must be IValidator");
+
+            this.bodyValidatorType = bodyValidatorType;
+        }
+
+        public ValidationAttribute()
+        {
+            defaultResponseStratgy = new DefaultFluentValidationResponseStrategy();
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext actionContext)
+        {
+            var responseStrategyService = actionContext.HttpContext.RequestServices.GetService(typeof(IFluentValidationResponseStrategy));
+            var responseStrategy = (IFluentValidationResponseStrategy)responseStrategyService ?? defaultResponseStratgy;
             
-        }
-
-        protected override IActionResult CreateErrorFromModelState(ActionExecutingContext actionContext, ModelStateDictionary actionContextModelState)
-        {
-            return new BadRequestObjectResult(CreateErrorFromModelState(actionContextModelState));
-        }
-
-
-        private ValidationErrorDto CreateErrorFromModelState(ModelStateDictionary modelStateDictionary)
-        {
-            var criticalModelState = modelStateDictionary.Where(x => x.Value.Errors != null && x.Value.Errors.Any())
-                .Select(x =>
-                        {
-                            var errorMessage = x.Value.Errors.First().ErrorMessage;
-                            return new
-                                   {
-                                       x.Key,
-                                       Value = string.IsNullOrEmpty(errorMessage) 
-                                        ? "Field is missing or has invalid format"
-                                        : errorMessage
-                            };
-                        })
-                        .ToArray();
-
-            return new ValidationErrorDto
-                   {
-                       Message = criticalModelState.SingleOrDefault(x => x.Key == "")?.Value,
-                       Data = criticalModelState.Where(x => x.Key != "").ToDictionary(x => x.Key, x => x.Value)
-                   };
-        }
-
-        protected override IActionResult CreateErrorFromValidationResult(ActionExecutingContext actionContext, ValidationResult validationResult)
-        {
-            var result = new ModelStateDictionary();
-            foreach (var error in validationResult.Errors)
+            if (actionContext.ModelState.IsValid == false)
             {
-                result.AddModelError(error.PropertyName, error.ErrorMessage);
+                actionContext.Result = responseStrategy.FromModelState(actionContext, actionContext.ModelState);
+                return;
             }
 
-            return CreateErrorFromModelState(actionContext, result);
+            if (bodyValidatorType == null)
+                return;
+
+            IValidator bodyValidator = GetBodyValidator();
+            object bodyData = GetBodyData(actionContext, bodyValidator);
+            if (bodyData == null)
+            {
+                //Пустое тело валидирует стандартный валидатор
+                return;
+            }
+
+            var validationResult = bodyValidator.Validate(bodyData);
+            if (validationResult.IsValid == false)
+            {
+                actionContext.Result = responseStrategy.FromFluentValidationResult(actionContext, validationResult);
+            }
+        }
+
+        private IValidator GetBodyValidator()
+        {
+            return (IValidator) Activator.CreateInstance(bodyValidatorType);
+        }
+
+        private object GetBodyData(ActionExecutingContext actionContext, IValidator bodyValidator)
+        {
+            ControllerParameterDescriptor descriptor = actionContext.ActionDescriptor
+                .Parameters
+                .Cast<ControllerParameterDescriptor>()
+                .SingleOrDefault(prm => prm.ParameterInfo.GetCustomAttributes(typeof(FromBodyAttribute), inherit: true)
+                                     .Any());
+
+            if (descriptor == null)
+                throw new ArgumentException("Method must have FromBodyAttribute");
+
+            if (bodyValidator.CanValidateInstancesOfType(descriptor.ParameterType) == false)
+                throw new ArgumentException(
+                    $"Validator {bodyValidatorType.Name} can't validate object type {descriptor.ParameterType}");
+
+            return actionContext.ActionArguments[descriptor.Name];
         }
     }
 }
