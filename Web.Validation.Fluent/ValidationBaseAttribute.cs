@@ -17,7 +17,7 @@ namespace Web.Validation.Fluent
 
         public ValidationBaseAttribute(Type bodyValidatorType)
         {
-            if(typeof(IValidator).IsAssignableFrom(bodyValidatorType) == false)
+            if (typeof(IValidator).IsAssignableFrom(bodyValidatorType) == false)
                 throw new ArgumentException("bodyValidatorType must be IValidator");
 
             this.bodyValidatorType = bodyValidatorType;
@@ -25,7 +25,6 @@ namespace Web.Validation.Fluent
 
         public ValidationBaseAttribute()
         {
-
         }
 
         public override void OnActionExecuting(ActionExecutingContext actionContext)
@@ -43,7 +42,7 @@ namespace Web.Validation.Fluent
             object bodyData = GetBodyData(actionContext, bodyValidator);
             if (bodyData == null)
             {
-                actionContext.Result = CreateErrorForEmptyBody(actionContext);
+                //Пустое тело валидирует стандартный валидатор
                 return;
             }
 
@@ -54,15 +53,15 @@ namespace Web.Validation.Fluent
             }
         }
 
-        protected abstract IActionResult CreateErrorFromModelState(ActionExecutingContext actionContext, ModelStateDictionary actionContextModelState);
+        protected abstract IActionResult CreateErrorFromModelState(ActionExecutingContext actionContext,
+            ModelStateDictionary actionContextModelState);
 
-        protected abstract IActionResult CreateErrorFromValidationResult(ActionExecutingContext actionContext, ValidationResult validationResult);
-
-        protected abstract IActionResult CreateErrorForEmptyBody(ActionExecutingContext actionContext);
+        protected abstract IActionResult CreateErrorFromValidationResult(ActionExecutingContext actionContext,
+            ValidationResult validationResult);
 
         private IValidator GetBodyValidator()
         {
-            return (IValidator)Activator.CreateInstance(bodyValidatorType);
+            return (IValidator) Activator.CreateInstance(bodyValidatorType);
         }
 
         private object GetBodyData(ActionExecutingContext actionContext, IValidator bodyValidator)
@@ -70,13 +69,15 @@ namespace Web.Validation.Fluent
             ControllerParameterDescriptor descriptor = actionContext.ActionDescriptor
                 .Parameters
                 .Cast<ControllerParameterDescriptor>()
-                .SingleOrDefault(prm => prm.ParameterInfo.GetCustomAttributes(typeof(FromBodyAttribute), inherit: true).Any());
+                .SingleOrDefault(prm => prm.ParameterInfo.GetCustomAttributes(typeof(FromBodyAttribute), inherit: true)
+                                     .Any());
 
             if (descriptor == null)
                 throw new ArgumentException("Method must have FromBodyAttribute");
 
             if (bodyValidator.CanValidateInstancesOfType(descriptor.ParameterType) == false)
-                throw new ArgumentException($"Validator {bodyValidatorType.Name} can't validate object type {descriptor.ParameterType}");
+                throw new ArgumentException(
+                    $"Validator {bodyValidatorType.Name} can't validate object type {descriptor.ParameterType}");
 
             return actionContext.ActionArguments[descriptor.Name];
         }

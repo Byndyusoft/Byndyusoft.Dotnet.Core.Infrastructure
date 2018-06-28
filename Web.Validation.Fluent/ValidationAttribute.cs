@@ -35,7 +35,7 @@ namespace Web.Validation.Fluent
                             var errorMessage = x.Value.Errors.First().ErrorMessage;
                             return new
                                    {
-                                       Key = GetPropertyPathWithoutDtoName(x.Key),
+                                       x.Key,
                                        Value = string.IsNullOrEmpty(errorMessage) 
                                         ? "Field is missing or has invalid format"
                                         : errorMessage
@@ -50,19 +50,6 @@ namespace Web.Validation.Fluent
                    };
         }
 
-        private static readonly string[] Suffix = { ".Int32", ".Int64" };
-
-        private string GetPropertyPathWithoutDtoName(string keyWithDtoName)
-        {
-            foreach (var suffix in Suffix)
-            {
-                if (keyWithDtoName.EndsWith(suffix))
-                    keyWithDtoName = keyWithDtoName.Remove(keyWithDtoName.Length - suffix.Length);
-            }
-
-            return keyWithDtoName;
-        }
-
         protected override IActionResult CreateErrorFromValidationResult(ActionExecutingContext actionContext, ValidationResult validationResult)
         {
             var result = new ModelStateDictionary();
@@ -73,12 +60,5 @@ namespace Web.Validation.Fluent
 
             return CreateErrorFromModelState(actionContext, result);
         }
-
-        protected override IActionResult CreateErrorForEmptyBody(ActionExecutingContext actionContext)
-        { 
-            return new BadRequestObjectResult("Body can't be empty");
-        }
-
-
     }
 }
