@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Web.Validation.Fluent.TestApplication
 {
+    using Byndyusoft.Dotnet.Core.Infrastructure.Web.ExceptionsHandling;
     using FluentValidation;
 
     public class Startup
@@ -26,10 +27,7 @@ namespace Web.Validation.Fluent.TestApplication
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseUnhandledExceptionsLoggingMiddleware();
 
             app.UseMvc();
         }

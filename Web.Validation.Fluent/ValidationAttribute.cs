@@ -17,9 +17,6 @@ namespace Web.Validation.Fluent
         public ValidationAttribute(Type bodyValidatorType)
             : this()
         {
-            if (typeof(IValidator).IsAssignableFrom(bodyValidatorType) == false)
-                throw new ArgumentException("bodyValidatorType must be IValidator");
-
             this.bodyValidatorType = bodyValidatorType;
         }
 
@@ -59,6 +56,9 @@ namespace Web.Validation.Fluent
 
         private IValidator GetBodyValidator()
         {
+            if (typeof(IValidator).IsAssignableFrom(bodyValidatorType) == false)
+                throw new ArgumentException("bodyValidatorType must be IValidator");
+
             return (IValidator) Activator.CreateInstance(bodyValidatorType);
         }
 
