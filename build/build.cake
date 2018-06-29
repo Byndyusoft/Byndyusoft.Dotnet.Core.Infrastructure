@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 var target = Argument("Target", "Default");
 
 var configuration = 
@@ -10,11 +12,22 @@ var buildNumber =
     AppVeyor.IsRunningOnAppVeyor ? AppVeyor.Environment.Build.Number :
     TravisCI.IsRunningOnTravisCI ? TravisCI.Environment.Build.BuildNumber :
     EnvironmentVariable("BuildNumber") != null ? int.Parse(EnvironmentVariable("BuildNumber")) : 0;
-var version = HasArgument("ShortVersion") ? Argument<string>("ShortVersion") : EnvironmentVariable("ShortVersion");
-version = !string.IsNullOrWhiteSpace(version) ? version : "1.0.0";
-var assemblyVersion = $"{version}.{buildNumber}";
-var versionSuffix = HasArgument("VersionSuffix") ? Argument<string>("VersionSuffix") : EnvironmentVariable("VersionSuffix");
-var packageVersion = version + (!string.IsNullOrWhiteSpace(versionSuffix) ? $"-{versionSuffix}-build{buildNumber}" : $".{buildNumber}");
+
+var branch = 
+    AppVeyor.IsRunningOnAppVeyor ? AppVeyor.Environment.Repository.Branch :
+    TravisCI.IsRunningOnTravisCI ? TravisCI.Environment.Build.Branch : (string)null;
+
+string versionSuffix = null;
+if(string.IsNullOrWhiteSpace(branch) == false && branch != "master")
+{
+    versionSuffix = $"-dev-build{buildNumber:00000}";
+
+    var match = Regex.Match(branch, "release\\/\\d+\\.\\d+\\.\\d+\\-?(.*)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+    if(match.Success)
+        versionSuffix = string.IsNullOrWhiteSpace(match.Groups[1].Value) == false
+            ? $"{match.Groups[1].Value}-build{buildNumber:00000}"
+            : $"build{buildNumber:00000}";
+}
  
 var artifactsDirectory = MakeAbsolute(Directory("./artifacts"));
  
@@ -29,18 +42,16 @@ Task("Clean")
     .Does(() =>
     {
         var projects = GetFiles("../src/**/*.csproj").Concat(GetFiles("../tests/**/*.csproj"));
-        foreach(var project in projects)
-        {
-           DotNetCoreBuild(
-                project.GetDirectory().FullPath,
-                new DotNetCoreBuildSettings()
+        var settings = new DotNetCoreBuildSettings
                 {
                     Configuration = configuration,
-                    ArgumentCustomization = args => args
-                        .Append($"/p:Version={version}")
-                        .Append($"/p:AssemblyVersion={assemblyVersion}")
-                });
-        }
+                    VersionSuffix = versionSuffix
+                };
+        if(buildNumber != 0)
+            settings.ArgumentCustomization = x => x.Append($"/p:Build={buildNumber}");
+
+        foreach(var project in projects)
+            DotNetCoreBuild(project.GetDirectory().FullPath, settings);
     });
 
 Task("Test")
@@ -48,17 +59,15 @@ Task("Test")
     .Does(() =>
     {
         var projects = GetFiles("../tests/**/*.csproj");
-        foreach(var project in projects)
+        var settings = new DotNetCoreTestSettings
         {
-            DotNetCoreTool(
-                project.FullPath,
-                "xunit",
-                new ProcessArgumentBuilder() 
-                    .Append("-configuration " + configuration)
-                    .Append("-nobuild")
-                    .Append("-xml " + artifactsDirectory.CombineWithFilePath(project.GetFilenameWithoutExtension()).FullPath + ".xml")
-                );
-        }
+            Configuration = configuration,
+            NoRestore = true,
+            NoBuild = true,
+        };
+
+        foreach(var project in projects)
+            DotNetCoreTest(project.FullPath, settings);
     });
 
 Task("Pack")
@@ -66,21 +75,18 @@ Task("Pack")
     .Does(() =>
     {
         var projects = GetFiles("../src/Infrastructure/**/*.csproj");
-        foreach (var project in projects)
-        {
-            DotNetCorePack(
-                project.GetDirectory().FullPath,
-                new DotNetCorePackSettings()
+        var settings = new DotNetCorePackSettings
                 {
                     Configuration = configuration,
                     NoRestore = true,
                     NoBuild = true,
                     OutputDirectory = artifactsDirectory,
                     IncludeSymbols = true,
-                     ArgumentCustomization = args => args
-                        .Append($"/p:PackageVersion={packageVersion}")
-                });
-        }
+                    VersionSuffix = versionSuffix
+                };
+
+        foreach (var project in projects)
+            DotNetCorePack(project.GetDirectory().FullPath, settings);
     });
 
 Task("Default")
