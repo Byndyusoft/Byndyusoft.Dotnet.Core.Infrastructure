@@ -2,7 +2,6 @@ language: csharp
 env:
   global:
     - Configuration=Release
-    - ShortVersion=1.0.1
 mono: none
 dotnet: 2.1.301
 script:
