@@ -1,4 +1,4 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -19,7 +19,10 @@
       "commandName": "Project",
       "commandLineArgs": "--environment Development --xml_docs bin\\Debug\\netcoreapp2.0\\Byndyusoft.Dotnet.Core.Samples.Web.Application.xml",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000/swagger"
+      "launchUrl": "http://localhost:5000/swagger",
+      "environmentVariables": {
+        "ASPNETCORE_URLS": "http://localhost:5000"
+      }
     }
   }
 }

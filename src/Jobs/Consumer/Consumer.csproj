@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>Byndyusoft.Dotnet.Core.Samples.Jobs.Consumer</AssemblyName>
     <RootNamespace>Byndyusoft.Dotnet.Core.Samples.Jobs.Consumer</RootNamespace>
   </PropertyGroup>
@@ -50,22 +50,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="autofac.extensions.dependencyinjection" Version="4.2.0" />
+    <PackageReference Include="autofac.extensions.dependencyinjection" Version="4.2.2" />
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
-    <PackageReference Include="microsoft.extensions.configuration.abstractions" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.0" />
-    <PackageReference Include="microsoft.extensions.configuration.fileextensions" Version="2.0.0" />
-    <PackageReference Include="microsoft.extensions.configuration.json" Version="2.0.0" />
-    <PackageReference Include="microsoft.extensions.dependencyinjection" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
-    <PackageReference Include="microsoft.extensions.options.configurationExtensions" Version="2.0.0" />
-    <PackageReference Include="Moq" Version="4.8.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="NLog.Extensions.Logging" Version="1.0.0-rtm-rc5" />
-    <PackageReference Include="NLog.MailKit" Version="2.1.1" />
-    <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
+    <PackageReference Include="microsoft.extensions.configuration.abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.1.1" />
+    <PackageReference Include="microsoft.extensions.configuration.fileextensions" Version="2.1.1" />
+    <PackageReference Include="microsoft.extensions.configuration.json" Version="2.1.1" />
+    <PackageReference Include="microsoft.extensions.dependencyinjection" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
+    <PackageReference Include="microsoft.extensions.options.configurationExtensions" Version="2.1.1" />
+    <PackageReference Include="Moq" Version="4.8.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.1.0" />
+    <PackageReference Include="NLog.MailKit" Version="2.2.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
   </ItemGroup>
 
   <ItemGroup>

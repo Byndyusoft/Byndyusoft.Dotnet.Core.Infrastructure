@@ -13,7 +13,6 @@
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Serialization;
-    using NLog.Web;
     using Swashbuckle.AspNetCore.Swagger;
 
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
@@ -76,8 +75,6 @@
 
         public void Configure(IApplicationBuilder app)
         {
-            app.AddNLogWeb();
-
             app
                 .UseUnhandledExceptionsLoggingMiddleware()
                 .UseSwagger()
