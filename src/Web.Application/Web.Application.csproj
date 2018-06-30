@@ -52,6 +52,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\CQRS.Abstractions\CQRS.Abstractions.csproj" />
     <ProjectReference Include="..\Infrastructure\CQRS.Implementations\CQRS.Implementations.csproj" />
+    <ProjectReference Include="..\Infrastructure\Logging.Serilog\Logging.Serilog.csproj" />
     <ProjectReference Include="..\Infrastructure\Web\Web.csproj" />
     <ProjectReference Include="..\Web.DataAccess\Web.DataAccess.csproj" />
     <ProjectReference Include="..\Web.Domain\Web.Domain.csproj" />

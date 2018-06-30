@@ -39,6 +39,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jobs", "Jobs", "{1222E1EF-0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consumer", "src\Jobs\Consumer\Consumer.csproj", "{FBA53287-CDE7-4620-919B-44BB0BD72F0E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging.Serilog", "src\Infrastructure\Logging.Serilog\Logging.Serilog.csproj", "{98A97987-9930-41BA-909C-90A703976D40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,10 @@ Global
 		{FBA53287-CDE7-4620-919B-44BB0BD72F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBA53287-CDE7-4620-919B-44BB0BD72F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBA53287-CDE7-4620-919B-44BB0BD72F0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98A97987-9930-41BA-909C-90A703976D40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98A97987-9930-41BA-909C-90A703976D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98A97987-9930-41BA-909C-90A703976D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98A97987-9930-41BA-909C-90A703976D40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +113,7 @@ Global
 		{D2FCE7F0-B964-446C-9748-C81DD20F806D} = {E547DC46-5195-40B7-BB5B-CE9F5EE770BA}
 		{1222E1EF-03F9-40FC-B247-DC05FEDAF5D2} = {E547DC46-5195-40B7-BB5B-CE9F5EE770BA}
 		{FBA53287-CDE7-4620-919B-44BB0BD72F0E} = {1222E1EF-03F9-40FC-B247-DC05FEDAF5D2}
+		{98A97987-9930-41BA-909C-90A703976D40} = {76BD8FA9-D53C-4E9D-855F-6FC669F609EA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19C512B5-D17D-4DF5-9ED6-211376780DDA}
