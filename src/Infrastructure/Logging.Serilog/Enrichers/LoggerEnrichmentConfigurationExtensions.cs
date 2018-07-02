@@ -1,24 +1,27 @@
-﻿namespace Byndyusoft.Dotnet.Core.Samples.Web.Application.Infrastructure.Extensions
+﻿namespace Byndyusoft.Dotnet.Core.Infrastructure.Logging.Serilog.Enrichers
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Reflection;
-    using Serilog;
-    using Serilog.Configuration;
+    using global::Serilog;
+    using global::Serilog.Configuration;
 
     public static class LoggerEnrichmentConfigurationExtensions
     {
+        [ExcludeFromCodeCoverage]
         public static LoggerConfiguration WithApplicationVersion(
-            this LoggerEnrichmentConfiguration enrichmentConfiguration,
+            this LoggerEnrichmentConfiguration enrichmentConfiguration, 
             string versionString)
         {
-            if (enrichmentConfiguration == null)
+            if(enrichmentConfiguration == null)
                 throw new ArgumentNullException(nameof(enrichmentConfiguration));
-            if (string.IsNullOrWhiteSpace(versionString))
+            if(string.IsNullOrWhiteSpace(versionString))
                 throw new ArgumentNullException(nameof(versionString));
 
             return enrichmentConfiguration.WithProperty("Version", versionString);
         }
 
+        [ExcludeFromCodeCoverage]
         public static LoggerConfiguration WithApplicationInformationalVersion(
             this LoggerEnrichmentConfiguration enrichmentConfiguration)
         {
@@ -30,6 +33,7 @@
             );
         }
 
+        [ExcludeFromCodeCoverage]
         public static LoggerConfiguration WithApplicationAssemblyVersion(
             this LoggerEnrichmentConfiguration enrichmentConfiguration)
         {
@@ -39,6 +43,16 @@
             return enrichmentConfiguration.WithApplicationVersion(
                 Assembly.GetEntryAssembly().GetName().Version.ToString(4)
             );
+        }
+
+        [ExcludeFromCodeCoverage]
+        public static LoggerConfiguration WithMessageTemplateHash(
+            this LoggerEnrichmentConfiguration enrichmentConfiguration)
+        {
+            if (enrichmentConfiguration == null)
+                throw new ArgumentNullException(nameof(enrichmentConfiguration));
+
+            return enrichmentConfiguration.With<MessageTemplateHashEnricher>();
         }
     }
 }

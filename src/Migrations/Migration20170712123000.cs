@@ -1,15 +1,15 @@
 ﻿namespace Byndyusoft.Dotnet.Core.Samples.Migrations
 {
-    using Infrastructure.Migrations;
+    using FluentMigrator;
     using JetBrains.Annotations;
 
     [UsedImplicitly]
-    public class Migration20170808183900 : IMigration
+    [Migration(20170808183900)]
+    public class Migration20170808183900 : ForwardOnlyMigration
     {
-        public long Version => 20170808183900L;
-
-        public string SqlSource => @"
-
-";
+        public override void Up()
+        {
+            Execute.Sql("select 1");
+        }
     }
 }
