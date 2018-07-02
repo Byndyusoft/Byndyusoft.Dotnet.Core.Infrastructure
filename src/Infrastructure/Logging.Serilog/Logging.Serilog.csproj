@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), common.props))\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Byndyusoft.Dotnet.Core.Infrastructure.Logging.Serilog</AssemblyName>
+    <RootNamespace>Byndyusoft.Dotnet.Core.Infrastructure.Logging.Serilog</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="murmurhash" Version="1.0.2" />
+    <PackageReference Include="Serilog.Exceptions" Version="4.1.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="2.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Enrichers\" />
+    <Folder Include="Formatting\" />
+  </ItemGroup>
+
+</Project>

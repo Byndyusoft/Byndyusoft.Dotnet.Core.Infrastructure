@@ -13,20 +13,21 @@
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Serialization;
-    using NLog.Web;
     using Swashbuckle.AspNetCore.Swagger;
 
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public class Startup
     {
-        private IConfiguration Configuration { get; }
+        private readonly IConfiguration _configuration;
+        private readonly string _versionString;
 
         public Startup(IConfiguration configuration)
         {
             if (configuration == null)
                 throw new ArgumentNullException(nameof(configuration));
 
-            Configuration = configuration;
+            _configuration = configuration;
+            _versionString = GetType().Assembly.GetName().Version.ToString(4);
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -35,16 +36,16 @@
             services.AddSwaggerGen(options =>
                                    {
                                        options
-                                           .SwaggerDoc("v1",
+                                           .SwaggerDoc($"v{_versionString}",
                                                new Info
                                                {
-                                                   Version = "v1",
+                                                   Version = $"v{_versionString}",
                                                    Title = "Values providing API",
                                                    Description = "A dummy to get configuration values",
                                                    TermsOfService = "None"
                                                });
 
-                                       var xmlDocsPath = Configuration.GetValue<string>("xml_docs");
+                                       var xmlDocsPath = _configuration.GetValue<string>("xml_docs");
                                        if (string.IsNullOrWhiteSpace(xmlDocsPath) == false)
                                            options.IncludeXmlComments(xmlDocsPath);
 
@@ -53,7 +54,7 @@
 
             services
                 .AddOptions()
-                .Configure<ValuesControllerOptions>(Configuration.GetSection(nameof(ValuesControllerOptions)));
+                .Configure<ValuesControllerOptions>(_configuration.GetSection(nameof(ValuesControllerOptions)));
 
             services
                 .AddMvc()
@@ -76,14 +77,12 @@
 
         public void Configure(IApplicationBuilder app)
         {
-            app.AddNLogWeb();
-
             app
                 .UseUnhandledExceptionsLoggingMiddleware()
                 .UseSwagger()
                 .UseSwaggerUI(options =>
                               {
-                                  options.SwaggerEndpoint("/swagger/v1/swagger.json", "Values providing API v1");
+                                  options.SwaggerEndpoint($"/swagger/v{_versionString}/swagger.json", $"Values providing API v{_versionString}");
                               })
                 .UseMvc();
         }

@@ -1,10 +1,8 @@
-version: $(ShortVersion).{build}
+version: '{build}'
 image:
 - Visual Studio 2017
 - Ubuntu
 configuration: Release
-environment:
-  ShortVersion: 1.0.1
 nuget:
   project_feed: true
   disable_publish_on_pr: true

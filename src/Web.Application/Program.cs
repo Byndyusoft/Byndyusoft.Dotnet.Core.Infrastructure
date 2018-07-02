@@ -2,10 +2,11 @@
 {
     using System.IO;
     using Autofac.Extensions.DependencyInjection;
-    using Infrastructure.Extensions;
+    using Core.Infrastructure.Logging.Serilog.Configuration;
     using JetBrains.Annotations;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
+    using Serilog;
 
     [UsedImplicitly(ImplicitUseTargetFlags.Members)]
     public static class Program
@@ -30,7 +31,7 @@
                             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", false, true)
                             .AddCommandLine(args);
                     })
-                .UseSerilog()
+                .UseSerilog((context, configuration) => configuration.UseDefaultSettings(context.Configuration))
                 .UseStartup<Startup>()
                 .Build();
 
