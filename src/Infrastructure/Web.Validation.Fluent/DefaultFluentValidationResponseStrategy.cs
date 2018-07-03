@@ -1,4 +1,4 @@
-namespace Web.Validation.Fluent
+namespace Byndyusoft.Dotnet.Core.Infrastructure.Web.Validation.Fluent
 {
     using System.Linq;
     using FluentValidation.Results;

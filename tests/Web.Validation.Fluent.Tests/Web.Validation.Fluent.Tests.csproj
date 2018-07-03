@@ -12,6 +12,10 @@
     <OutputType>Library</OutputType>
 
     <StartupObject />
+
+    <AssemblyName>Byndyusoft.Dotnet.Core.Web.Validation.Fluent.Tests</AssemblyName>
+
+    <RootNamespace>Byndyusoft.Dotnet.Core.Web.Validation.Fluent.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

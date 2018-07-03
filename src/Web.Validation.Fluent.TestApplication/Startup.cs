@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Web.Validation.Fluent.TestApplication
+﻿namespace Byndyusoft.Dotnet.Core.Web.Validation.Fluent.TestApplication
 {
-    using Byndyusoft.Dotnet.Core.Infrastructure.Web.ExceptionsHandling;
     using FluentValidation;
+    using Infrastructure.Web.ExceptionsHandling;
+    using Infrastructure.Web.Validation.Fluent;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
 
     public class Startup
     {

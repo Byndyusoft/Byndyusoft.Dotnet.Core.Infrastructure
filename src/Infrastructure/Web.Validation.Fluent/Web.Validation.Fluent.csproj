@@ -4,6 +4,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Byndyusoft.Dotnet.Core.Infrastructure.Web.Validation.Fluent</AssemblyName>
+    <RootNamespace>Byndyusoft.Dotnet.Core.Infrastructure.Web.Validation.Fluent</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

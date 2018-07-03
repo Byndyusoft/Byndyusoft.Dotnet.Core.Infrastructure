@@ -1,4 +1,4 @@
-﻿namespace Web.Validation.Fluent
+﻿namespace Byndyusoft.Dotnet.Core.Infrastructure.Web.Validation.Fluent
 {
     using System;
     using System.Globalization;
@@ -6,7 +6,7 @@
     using System.Reflection;
     using FluentValidation.Internal;
 
-    public class CamelCasePropertyNameResolver
+    public static class CamelCasePropertyNameResolver
     {
         public static string ResolvePropertyName(Type type, MemberInfo memberInfo, LambdaExpression expression)
         {

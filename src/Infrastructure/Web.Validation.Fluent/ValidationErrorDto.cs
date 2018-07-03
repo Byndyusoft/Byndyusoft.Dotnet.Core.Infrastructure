@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Web.Validation
+﻿namespace Byndyusoft.Dotnet.Core.Infrastructure.Web.Validation
 {
+    using System.Collections.Generic;
+
     public class ValidationErrorDto
     {
         public string Message { get; set; }

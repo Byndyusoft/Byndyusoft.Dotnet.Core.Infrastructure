@@ -1,7 +1,7 @@
-﻿
-namespace Web.Validation.Fluent.TestApplication.Controllers
+﻿namespace Byndyusoft.Dotnet.Core.Web.Validation.Fluent.TestApplication.Controllers
 {
     using FluentValidation;
+    using Infrastructure.Web.Validation.Fluent;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]")]

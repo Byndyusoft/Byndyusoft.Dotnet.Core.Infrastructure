@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-
-namespace Web.Validation.Fluent.TestApplication
+﻿namespace Byndyusoft.Dotnet.Core.Web.Validation.Fluent.TestApplication
 {
+    using Microsoft.AspNetCore;
+    using Microsoft.AspNetCore.Hosting;
+
     public class Program
     {
         public static void Main(string[] args)

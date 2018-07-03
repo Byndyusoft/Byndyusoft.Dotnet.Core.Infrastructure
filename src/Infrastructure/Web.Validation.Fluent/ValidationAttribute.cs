@@ -1,13 +1,11 @@
-﻿using System;
-
-namespace Web.Validation.Fluent
+﻿namespace Byndyusoft.Dotnet.Core.Infrastructure.Web.Validation.Fluent
 {
+    using System;
     using System.Linq;
     using FluentValidation;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Controllers;
     using Microsoft.AspNetCore.Mvc.Filters;
-
 
     public class ValidationAttribute : ActionFilterAttribute
     {

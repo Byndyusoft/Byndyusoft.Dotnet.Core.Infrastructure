@@ -1,10 +1,11 @@
-﻿namespace Web.Validation.Fluent.Tests
+﻿namespace Byndyusoft.Dotnet.Core.Web.Validation.Fluent.Tests
 {
     using System.Net;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
     using FluentValidation.Results;
+    using Infrastructure.Web.Validation.Fluent;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;

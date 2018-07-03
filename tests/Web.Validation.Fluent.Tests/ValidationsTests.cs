@@ -1,12 +1,12 @@
-namespace Web.Validation.Fluent.Tests
+namespace Byndyusoft.Dotnet.Core.Web.Validation.Fluent.Tests
 {
     using System.Net;
     using System.Net.Http;
     using System.Text;
-    using Xunit;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc.Testing;
     using TestApplication;
+    using Xunit;
     using Xunit.Abstractions;
 
     public class ValidationsTests : IClassFixture<WebApplicationFactory<Startup>>

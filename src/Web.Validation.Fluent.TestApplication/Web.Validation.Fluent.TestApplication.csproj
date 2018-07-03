@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>Byndyusoft.Dotnet.Core.Web.Validation.Fluent.TestApplication</AssemblyName>
+    <RootNamespace>Byndyusoft.Dotnet.Core.Web.Validation.Fluent.TestApplication</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
