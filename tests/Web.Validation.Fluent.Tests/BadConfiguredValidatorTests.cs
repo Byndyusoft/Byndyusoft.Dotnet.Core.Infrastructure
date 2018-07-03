@@ -23,7 +23,7 @@
         [Theory]
         [InlineData("typeIsNotIValidator", "bodyValidatorType must be IValidator")]
         [InlineData("paramsWithoutFromBodyAttribute", "Method must have FromBodyAttribute")]
-        [InlineData("validatorTypeForAnotherDtoType", "Validator StringValidator can't validate object type Web.Validation.Fluent.TestApplication.Controllers.BadConfiguredDto")]
+        [InlineData("validatorTypeForAnotherDtoType", "Validator StringValidator can\'t validate object type Byndyusoft.Dotnet.Core.Web.Validation.Fluent.TestApplication.Controllers.BadConfiguredDto")]
         public async Task BadConfiguredValidationTest(string route, string errorMessage)
         {
             HttpClient cleint = factory.CreateClient();
