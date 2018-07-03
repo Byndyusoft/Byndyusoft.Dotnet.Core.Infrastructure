@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Web.Validation.Fluent.TestApplication\Web.Validation.Fluent.TestApplication.csproj" />
+    <ProjectReference Include="..\..\src\Web.Validation.Fluent.TestApplication\Web.Validation.Fluent.TestApplication.csproj" />
   </ItemGroup>
 
 </Project>
