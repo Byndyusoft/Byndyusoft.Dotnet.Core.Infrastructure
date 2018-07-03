@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Infrastructure\Web\Web.csproj" />
-    <ProjectReference Include="..\..\Web.Validation.Fluent\Web.Validation.Fluent.csproj" />
+    <ProjectReference Include="..\Infrastructure\Web.Validation.Fluent\Web.Validation.Fluent.csproj" />
   </ItemGroup>
 
 </Project>
