@@ -12,28 +12,22 @@ Param(
     [string[]]$ScriptArgs
 )
 
-Write-Host "Preparing to run build script..."
-
+Write-Host -f Yellow "Preparing to run build script..."
 if(!$PSScriptRoot){
     $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
 }
 
-$TOOLS_DIR = Join-Path $PSScriptRoot "tools"
-$TEMP_DIR = Join-Path $PSScriptRoot "tmp"
-$TEMP_PROJECT = Join-Path $TEMP_DIR "tmp.csproj"
-
-# Is this a dry run?
 $UseDryRun = "";
 if($WhatIf.IsPresent) 
 {
     $UseDryRun = "--dryrun"
 }
 
-& dotnet new classlib -o "$TEMP_DIR" --no-restore
-& dotnet add "$TEMP_PROJECT" package --package-directory "$TOOLS_DIR" Cake.CoreCLR
-Remove-Item -Recurse -Force "$TEMP_DIR"
-$CakePath = Get-ChildItem -Filter Cake.dll -Recurse | Sort-Object -Descending | Select-Object -Expand FullName -first 1
+Write-Host -f Yellow "Looking for Cake.Tool..."
+if (-Not (& dotnet tool list -g | Select-String "cake.tool")) {
+    & dotnet tool install -g Cake.Tool
+}
 
-Write-Host "Running build script..."
-& dotnet "$CakePath" $Script --nuget_useinprocessclient=true --target=$Target --configuration=$Configuration --verbosity=$Verbosity $UseDryRun $ScriptArgs
+Write-Host -f Yellow "Running build script..."
+& dotnet cake $Script --nuget_useinprocessclient=true --target=$Target --configuration=$Configuration --verbosity=$Verbosity $UseDryRun $ScriptArgs
 exit $LASTEXITCODE
