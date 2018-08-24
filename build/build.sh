@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-TOOLS_DIR=$SCRIPT_DIR/tools
-TEMP_DIR=$SCRIPT_DIR/tmp
-TEMP_PROJECT=$TEMP_DIR/tmp.csproj
-
 SCRIPT="build.cake"
 TARGET="Default"
 CONFIGURATION="Release"
@@ -27,13 +22,12 @@ for i in "$@"; do
     shift
 done
 
-dotnet new classlib -o "$TEMP_DIR" --no-restore
-dotnet add "$TEMP_PROJECT" package --package-directory "$TOOLS_DIR" Cake.CoreCLR
-rm -rf tmp
-CAKE_PATH=$(find "$TOOLS_DIR" -name Cake.dll | sort -r | head -1)
+if [[ $(dotnet tool list -g) != *"cake.tool"* ]]; then
+    dotnet tool install -g Cake.Tool
+fi
 
 if $SHOW_VERSION; then
-    dotnet "$CAKE_PATH" --version
+    dotnet cake --version
 else
-    dotnet "$CAKE_PATH" $SCRIPT --nuget_useinprocessclient=true --settings_skipverification=true --verbosity=$VERBOSITY --configuration=$CONFIGURATION --target=$TARGET $DRYRUN "${SCRIPT_ARGUMENTS[@]}"
+    dotnet cake $SCRIPT --nuget_useinprocessclient=true --settings_skipverification=true --verbosity=$VERBOSITY --configuration=$CONFIGURATION --target=$TARGET $DRYRUN "${SCRIPT_ARGUMENTS[@]}"
 fi
