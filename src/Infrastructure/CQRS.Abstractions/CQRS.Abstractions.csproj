@@ -4,6 +4,13 @@
     <TargetFramework>netstandard1.1</TargetFramework>
     <AssemblyName>Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Abstractions</AssemblyName>
     <RootNamespace>Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Abstractions</RootNamespace>
+    <Description>Abstractions of the CQRS pattern</Description>
+    <PackageDescription Condition="'$(RepositoryBranch)'!=''">
+$(Description)
+Branch: $(RepositoryBranch)
+Working tree: $(RepositoryUrl)/tree/$(RepositoryCommit)
+Commit message: $(RepositoryCommitMessage)
+    </PackageDescription>
   </PropertyGroup>
 
 </Project>
