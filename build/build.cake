@@ -16,6 +16,12 @@ var buildNumber =
 var branch = 
     AppVeyor.IsRunningOnAppVeyor ? AppVeyor.Environment.Repository.Branch :
     TravisCI.IsRunningOnTravisCI ? TravisCI.Environment.Build.Branch : (string)null;
+var commitId =
+    AppVeyor.IsRunningOnAppVeyor ? AppVeyor.Environment.Repository.Commit.Id :
+    TravisCI.IsRunningOnTravisCI ? TravisCI.Environment.Repository.Commit : (string)null;
+var commitMessage =
+    AppVeyor.IsRunningOnAppVeyor ? AppVeyor.Environment.Repository.Commit.Message :
+    TravisCI.IsRunningOnTravisCI ? EnvironmentVariable("TRAVIS_COMMIT_MESSAGE") : (string)null;
 
 string versionSuffix = null;
 if(string.IsNullOrWhiteSpace(branch) == false && branch != "master")
@@ -45,10 +51,11 @@ Task("Clean")
         var settings = new DotNetCoreBuildSettings
                 {
                     Configuration = configuration,
-                    VersionSuffix = versionSuffix
+                    VersionSuffix = versionSuffix,
+                    MSBuildSettings = new DotNetCoreMSBuildSettings()
                 };
         if(buildNumber != 0)
-            settings.ArgumentCustomization = x => x.Append($"/p:Build={buildNumber}");
+            settings.MSBuildSettings.Properties["Build"] = new[] {buildNumber.ToString()};
 
         foreach(var project in projects)
             DotNetCoreBuild(project.GetDirectory().FullPath, settings);
@@ -82,8 +89,16 @@ Task("Pack")
                     NoBuild = true,
                     OutputDirectory = artifactsDirectory,
                     IncludeSymbols = true,
-                    VersionSuffix = versionSuffix
+                    VersionSuffix = versionSuffix,
+                    MSBuildSettings = new DotNetCoreMSBuildSettings()
                 };
+        if(string.IsNullOrWhiteSpace(commitId) == false)
+            settings.MSBuildSettings.Properties["RepositoryCommit"] = new[] {commitId};
+        if(string.IsNullOrWhiteSpace(branch) == false && branch != "master")
+        {
+            settings.MSBuildSettings.Properties["RepositoryBranch"] = new[] {branch};
+            settings.MSBuildSettings.Properties["RepositoryCommitMessage"] = new[] {commitMessage};
+        }
 
         foreach (var project in projects)
             DotNetCorePack(project.GetDirectory().FullPath, settings);

@@ -4,6 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Byndyusoft.Dotnet.Core.Infrastructure.Migrations</AssemblyName>
     <RootNamespace>Byndyusoft.Dotnet.Core.Infrastructure.Migrations</RootNamespace>
+    <Description>Abstractions for environment migration</Description>
+    <PackageDescription Condition="'$(RepositoryBranch)'!=''">
+$(Description)
+Branch: $(RepositoryBranch)
+Working tree: $(RepositoryUrl)/tree/$(RepositoryCommit)
+Commit message: $(RepositoryCommitMessage)
+    </PackageDescription>
   </PropertyGroup>
 
   <ItemGroup>

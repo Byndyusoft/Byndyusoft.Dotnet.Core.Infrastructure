@@ -1,0 +1,13 @@
+<Project>
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), common.props))\common.props" />
+
+  <PropertyGroup>
+    <DebugType>portable</DebugType>
+    <PackageProjectUrl>https://github.com/Byndyusoft/Byndyusoft.Dotnet.Core.Infrastructure</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/Byndyusoft/Byndyusoft.Dotnet.Core.Infrastructure/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Byndyusoft/Byndyusoft.Dotnet.Core.Infrastructure</RepositoryUrl>
+  </PropertyGroup>
+
+</Project>
