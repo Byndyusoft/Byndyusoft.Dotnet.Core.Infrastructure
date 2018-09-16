@@ -7,6 +7,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>Byndyusoft.Dotnet.Core.Samples.Jobs.Consumer</AssemblyName>
     <RootNamespace>Byndyusoft.Dotnet.Core.Samples.Jobs.Consumer</RootNamespace>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,6 +44,7 @@
     <PackageReference Include="microsoft.extensions.configuration.fileextensions" Version="2.1.1" />
     <PackageReference Include="microsoft.extensions.configuration.json" Version="2.1.1" />
     <PackageReference Include="microsoft.extensions.dependencyinjection" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
     <PackageReference Include="microsoft.extensions.options.configurationExtensions" Version="2.1.1" />
     <PackageReference Include="Moq" Version="4.10.0" />
