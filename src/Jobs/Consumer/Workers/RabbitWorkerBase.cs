@@ -3,60 +3,71 @@
     using System;
     using System.Text;
     using System.Threading;
+    using System.Threading.Tasks;
+    using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Newtonsoft.Json;
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
 
-    public abstract class RabbitWorkerBase
+    public abstract class RabbitWorkerBase : IHostedService
     {
-        private readonly ILogger<RabbitWorkerBase> logger;
-        private readonly ManualResetEvent waitHandle;
-        private readonly TimeSpan ReconectTimeout = TimeSpan.FromSeconds(5);
-        private readonly string queueName;
-        private readonly ConnectionFactory connectionFactory;
-        private readonly Thread thread;
+        private readonly ILogger _logger;
+        private readonly ManualResetEvent _waitHandle;
+        private readonly TimeSpan _reconectTimeout = TimeSpan.FromSeconds(5);
+        private readonly string _queueName;
+        private readonly ConnectionFactory _connectionFactory;
+        private readonly Thread _thread;
 
-        protected RabbitWorkerBase(ILogger<RabbitWorkerBase> logger, IOptions<RabbitConnectionsFactoryOptions> options, string queueName)
+        protected RabbitWorkerBase(ILogger logger, IOptions<RabbitConnectionsFactoryOptions> options, string queueName)
         {
-            this.logger = logger;
-            connectionFactory = new ConnectionFactory
+            _logger = logger;
+            _connectionFactory = new ConnectionFactory
                                 {
                                     Endpoint = new AmqpTcpEndpoint(options.Value.Endpoint),
                                     UserName = options.Value.UserName,
                                     Password = options.Value.Password,
                                     AutomaticRecoveryEnabled = true,
-                                    NetworkRecoveryInterval = ReconectTimeout
+                                    NetworkRecoveryInterval = _reconectTimeout
                                 };
-            waitHandle = new ManualResetEvent(false);
-            this.queueName = queueName;
-            thread = new Thread(Connect) { IsBackground = false };
+            _waitHandle = new ManualResetEvent(false);
+            _queueName = queueName;
+            _thread = new Thread(Connect) { IsBackground = false };
         }
 
-        public void Start()
+        public Task StartAsync(CancellationToken cancellationToken)
         {
-            thread.Start();
+            _logger.LogInformation("Starting service...");
+            _thread.Start();
+            _logger.LogInformation("Service was started");
+            return Task.CompletedTask;
         }
 
-        private void Connect()
+        public Task StopAsync(CancellationToken cancellationToken)
         {
-            bool hasStop = false;
+            _logger.LogInformation("Stopping service...");
+            _waitHandle.Set();
+            _logger.LogInformation("Service was stopped");
+            return Task.CompletedTask;
+        }
+
+            private void Connect()
+        {
+            var hasStop = false;
             while (hasStop == false && CreateConnection() == false)
-            {
-                hasStop = waitHandle.WaitOne(ReconectTimeout);
-            }
+                hasStop = _waitHandle.WaitOne(_reconectTimeout);
         }
 
         private bool CreateConnection()
         {
-            logger.LogInformation("Start " + GetType().Name);
+            _logger.LogInformation("Start " + GetType().Name);
             try
             {
-                using (var connection = connectionFactory.CreateConnection())
+                using (var connection = _connectionFactory.CreateConnection())
                 using (var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare(queue: queueName,
+                    channel.QueueDeclare(queue: _queueName,
                         durable: true,
                         exclusive: false,
                         autoDelete: false,
@@ -66,17 +77,17 @@
 
                     var consumer = new EventingBasicConsumer(channel);
                     consumer.Received += ConsumerOnReceived;
-                    channel.BasicConsume(queueName,
+                    channel.BasicConsume(_queueName,
                         false,
                         consumer);
 
-                    waitHandle.WaitOne();
+                    _waitHandle.WaitOne();
                 }
                 return true;
             }
             catch (Exception e)
             {
-                logger.LogError(0, e, "Unable create rabbit mq connection");
+                _logger.LogError(0, e, "Unable create rabbit mq connection");
             }
             return false;
         }
@@ -102,7 +113,7 @@
                 }
                 catch (Exception e)
                 {
-                    logger.LogError(0, e, $"Failed proccess message {message} from queue {queueName}, attempt # {i + 1}");
+                    _logger.LogError(0, e, $"Failed proccess message {message} from queue {_queueName}, attempt # {i + 1}");
 
                     ResendToErrors(ea.Body, message, e.Message, parsed);
                 }
@@ -114,20 +125,20 @@
             }
             catch (Exception e)
             {
-                logger.LogError(0, e, $"Failed acknowledge message {message} from queue {queueName}");
+                _logger.LogError(0, e, $"Failed acknowledge message {message} from queue {_queueName}");
                 throw;
             }
         }
 
         private void ResendToErrors(byte[] body, string message, string exceptionMessage, bool parsed)
         {
-            string errorQueue = "errors." + queueName;
+            string errorQueue = "errors." + _queueName;
             byte[] errorBody;
             if (parsed)
             {
                 var json = JsonConvert.SerializeObject(new
                                                        {
-                                                           SourceQueue = queueName,
+                                                           SourceQueue = _queueName,
                                                            ExceptionMessage = exceptionMessage,
                                                            Message = message
                                                        });
@@ -136,7 +147,7 @@
             else
                 errorBody = body;
 
-            using (var connection = connectionFactory.CreateConnection())
+            using (var connection = _connectionFactory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
                 channel.QueueDeclare(queue: errorQueue,
