@@ -21,6 +21,7 @@
                 .Enrich.WithApplicationInformationalVersion()
                 .Enrich.WithExceptionDetails()
                 .Enrich.WithMessageTemplateHash()
+                .Enrich.WithLogEventHash()
                 .Enrich.FromLogContext()
                 .ReadFrom.Configuration(configuration);
         }
