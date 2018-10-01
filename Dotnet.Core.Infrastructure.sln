@@ -50,6 +50,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Validation.Fluent.TestA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Validation.Fluent", "src\Infrastructure\Web.Validation.Fluent\Web.Validation.Fluent.csproj", "{282BD156-7D68-4EE2-896B-27A5A57ADEB7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Specifications", "src\Infrastructure\Specifications\Specifications.csproj", "{B7B585D5-850C-4A2D-96E8-13C9E8C3FE04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Specifications.Tests", "tests\Specifications.Tests\Specifications.Tests.csproj", "{721DBD05-0155-4E1F-9AD2-A621E689C2CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +120,14 @@ Global
 		{282BD156-7D68-4EE2-896B-27A5A57ADEB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{282BD156-7D68-4EE2-896B-27A5A57ADEB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{282BD156-7D68-4EE2-896B-27A5A57ADEB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7B585D5-850C-4A2D-96E8-13C9E8C3FE04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7B585D5-850C-4A2D-96E8-13C9E8C3FE04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7B585D5-850C-4A2D-96E8-13C9E8C3FE04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7B585D5-850C-4A2D-96E8-13C9E8C3FE04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{721DBD05-0155-4E1F-9AD2-A621E689C2CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{721DBD05-0155-4E1F-9AD2-A621E689C2CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{721DBD05-0155-4E1F-9AD2-A621E689C2CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{721DBD05-0155-4E1F-9AD2-A621E689C2CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +150,8 @@ Global
 		{98A97987-9930-41BA-909C-90A703976D40} = {76BD8FA9-D53C-4E9D-855F-6FC669F609EA}
 		{7A53E8C1-BF75-4E02-845C-6A6182E94B80} = {E547DC46-5195-40B7-BB5B-CE9F5EE770BA}
 		{282BD156-7D68-4EE2-896B-27A5A57ADEB7} = {76BD8FA9-D53C-4E9D-855F-6FC669F609EA}
+		{B7B585D5-850C-4A2D-96E8-13C9E8C3FE04} = {76BD8FA9-D53C-4E9D-855F-6FC669F609EA}
+		{721DBD05-0155-4E1F-9AD2-A621E689C2CB} = {2E48BF8E-CF3E-4752-97AD-9DB6485CC700}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19C512B5-D17D-4DF5-9ED6-211376780DDA}
