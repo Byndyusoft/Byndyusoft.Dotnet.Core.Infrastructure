@@ -18,6 +18,7 @@
                 throw new ArgumentNullException(nameof(configuration));
 
             return loggerConfiguration
+                .Enrich.WithServiceName(Environment.GetEnvironmentVariable("SERVICE_NAME"))
                 .Enrich.WithApplicationInformationalVersion()
                 .Enrich.WithExceptionDetails()
                 .Enrich.WithMessageTemplateHash()

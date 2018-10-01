@@ -46,6 +46,22 @@
         }
 
         [ExcludeFromCodeCoverage]
+        public static LoggerConfiguration WithServiceName(
+            this LoggerEnrichmentConfiguration enrichmentConfiguration,
+            string serviceName = null)
+        {
+            if (enrichmentConfiguration == null)
+                throw new ArgumentNullException(nameof(enrichmentConfiguration));
+
+            return enrichmentConfiguration.WithProperty(
+                "ServiceName",
+                string.IsNullOrWhiteSpace(serviceName) == false
+                    ? serviceName
+                    : Assembly.GetEntryAssembly().GetName().Name
+            );
+        }
+
+        [ExcludeFromCodeCoverage]
         public static LoggerConfiguration WithMessageTemplateHash(
             this LoggerEnrichmentConfiguration enrichmentConfiguration)
         {
