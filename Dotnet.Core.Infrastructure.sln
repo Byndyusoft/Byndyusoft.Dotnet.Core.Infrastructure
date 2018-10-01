@@ -50,6 +50,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Validation.Fluent.TestA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Validation.Fluent", "src\Infrastructure\Web.Validation.Fluent\Web.Validation.Fluent.csproj", "{282BD156-7D68-4EE2-896B-27A5A57ADEB7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNetCore", "AspNetCore", "{5A091ECF-1F1F-4BF7-80B5-DCBD3F295C53}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mvc", "Mvc", "{DFA3CA4B-3DF2-4905-B70C-0F16A52D8A14}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ByndyuSoft.AspNetCore.Mvc.Formatters.ProtoBuf", "src\AspNetCore\ByndyuSoft.AspNetCore.Mvc.Formatters.ProtoBuf\ByndyuSoft.AspNetCore.Mvc.Formatters.ProtoBuf.csproj", "{F1B76AC2-2D61-4DC2-898A-8670FD1E62DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +122,10 @@ Global
 		{282BD156-7D68-4EE2-896B-27A5A57ADEB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{282BD156-7D68-4EE2-896B-27A5A57ADEB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{282BD156-7D68-4EE2-896B-27A5A57ADEB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1B76AC2-2D61-4DC2-898A-8670FD1E62DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1B76AC2-2D61-4DC2-898A-8670FD1E62DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1B76AC2-2D61-4DC2-898A-8670FD1E62DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1B76AC2-2D61-4DC2-898A-8670FD1E62DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +148,9 @@ Global
 		{98A97987-9930-41BA-909C-90A703976D40} = {76BD8FA9-D53C-4E9D-855F-6FC669F609EA}
 		{7A53E8C1-BF75-4E02-845C-6A6182E94B80} = {E547DC46-5195-40B7-BB5B-CE9F5EE770BA}
 		{282BD156-7D68-4EE2-896B-27A5A57ADEB7} = {76BD8FA9-D53C-4E9D-855F-6FC669F609EA}
+		{5A091ECF-1F1F-4BF7-80B5-DCBD3F295C53} = {E547DC46-5195-40B7-BB5B-CE9F5EE770BA}
+		{DFA3CA4B-3DF2-4905-B70C-0F16A52D8A14} = {5A091ECF-1F1F-4BF7-80B5-DCBD3F295C53}
+		{F1B76AC2-2D61-4DC2-898A-8670FD1E62DB} = {DFA3CA4B-3DF2-4905-B70C-0F16A52D8A14}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19C512B5-D17D-4DF5-9ED6-211376780DDA}
