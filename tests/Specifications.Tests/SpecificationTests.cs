@@ -1,6 +1,7 @@
 namespace Byndyusoft.Extensions.Specifications.Tests
 {
     using Linq;
+    using Sql;
     using Xunit;
 
     public class SpecificationTests
@@ -13,6 +14,16 @@ namespace Byndyusoft.Extensions.Specifications.Tests
             var linq = specification.AsLinq();
 
             Assert.IsAssignableFrom<ILinqSpecification<int>>(linq);
+        }
+
+        [Fact]
+        public void AsSql_Test()
+        {
+            var specification = SqlSpecification.Create<int>("Id=1");
+
+            var linq = specification.AsSql();
+
+            Assert.IsAssignableFrom<ISqlSpecification<int>>(linq);
         }
     }
 }
