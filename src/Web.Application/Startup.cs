@@ -4,6 +4,7 @@
     using System.Reflection;
     using Autofac;
     using ByndyuSoft.AspNetCore.Mvc.Formatters.ProtoBuf;
+    using ByndyuSoft.AspNetCore.Mvc.Formatters.Yaml;
     using Controllers.ValuesController;
     using Core.Infrastructure.Web.ExceptionsHandling;
     using Infrastructure.Installers;
@@ -59,8 +60,9 @@
 
             services
                 .AddMvc()
-                .AddXmlSerializerFormatters()
                 .AddProtoBufFormatters()
+                .AddYamlFormatters()
+                .AddXmlSerializerFormatters()
                 .AddJsonOptions(x =>
                                 {
                                     x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;

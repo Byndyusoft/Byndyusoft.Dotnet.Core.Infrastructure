@@ -56,6 +56,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mvc", "Mvc", "{DFA3CA4B-3DF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ByndyuSoft.AspNetCore.Mvc.Formatters.ProtoBuf", "src\AspNetCore\ByndyuSoft.AspNetCore.Mvc.Formatters.ProtoBuf\ByndyuSoft.AspNetCore.Mvc.Formatters.ProtoBuf.csproj", "{F1B76AC2-2D61-4DC2-898A-8670FD1E62DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ByndyuSoft.AspNetCore.Mvc.Formatters.Yaml", "src\AspNetCore\ByndyuSoft.AspNetCore.Mvc.Formatters.Yaml\ByndyuSoft.AspNetCore.Mvc.Formatters.Yaml.csproj", "{7BAF79C1-BBBD-41B7-A5EE-DF16B34C2B68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -126,6 +128,10 @@ Global
 		{F1B76AC2-2D61-4DC2-898A-8670FD1E62DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1B76AC2-2D61-4DC2-898A-8670FD1E62DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1B76AC2-2D61-4DC2-898A-8670FD1E62DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BAF79C1-BBBD-41B7-A5EE-DF16B34C2B68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BAF79C1-BBBD-41B7-A5EE-DF16B34C2B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BAF79C1-BBBD-41B7-A5EE-DF16B34C2B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BAF79C1-BBBD-41B7-A5EE-DF16B34C2B68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,6 +157,7 @@ Global
 		{5A091ECF-1F1F-4BF7-80B5-DCBD3F295C53} = {E547DC46-5195-40B7-BB5B-CE9F5EE770BA}
 		{DFA3CA4B-3DF2-4905-B70C-0F16A52D8A14} = {5A091ECF-1F1F-4BF7-80B5-DCBD3F295C53}
 		{F1B76AC2-2D61-4DC2-898A-8670FD1E62DB} = {DFA3CA4B-3DF2-4905-B70C-0F16A52D8A14}
+		{7BAF79C1-BBBD-41B7-A5EE-DF16B34C2B68} = {DFA3CA4B-3DF2-4905-B70C-0F16A52D8A14}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19C512B5-D17D-4DF5-9ED6-211376780DDA}

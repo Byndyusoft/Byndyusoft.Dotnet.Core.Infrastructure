@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AspNetCore\ByndyuSoft.AspNetCore.Mvc.Formatters.ProtoBuf\ByndyuSoft.AspNetCore.Mvc.Formatters.ProtoBuf.csproj" />
+    <ProjectReference Include="..\AspNetCore\ByndyuSoft.AspNetCore.Mvc.Formatters.Yaml\ByndyuSoft.AspNetCore.Mvc.Formatters.Yaml.csproj" />
     <ProjectReference Include="..\Infrastructure\CQRS.Abstractions\CQRS.Abstractions.csproj" />
     <ProjectReference Include="..\Infrastructure\CQRS.Implementations\CQRS.Implementations.csproj" />
     <ProjectReference Include="..\Infrastructure\Logging.Serilog\Logging.Serilog.csproj" />
