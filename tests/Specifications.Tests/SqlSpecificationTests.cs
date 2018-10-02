@@ -5,7 +5,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
 
     public class SqlSpecificationTests
     {
-        private string CreateSql<T>(string query, SqlSpecification<T> specification)
+        private string CreateSql(string query, SqlSpecification specification)
         {
             return query.Where(specification);
         }
@@ -14,7 +14,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void Where_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification = SqlSpecification.Create<int>("Id=1");
+            var specification = SqlSpecification.Create("Id=1");
 
             var sql = query.Where(specification);
 
@@ -26,7 +26,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         {
             const string query = "SELECT * FROM Table";
 
-            var sql = query.Where((ISqlSpecification<int>)null);
+            var sql = query.Where((ISqlSpecification)null);
 
             Assert.Equal("SELECT * FROM Table", sql);
         }
@@ -35,7 +35,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void SqlSpecification_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification = SqlSpecification.Create<int>("Id=1");
+            var specification = SqlSpecification.Create("Id=1");
 
             var sql = CreateSql(query, specification);
 
@@ -45,7 +45,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         [Fact]
         public void SqlSpecification_Parameters_Test()
         {
-            var specification = SqlSpecification.Create<int>("Id=@id", new {id = 1});
+            var specification = SqlSpecification.Create("Id=@id", new {id = 1});
 
             Assert.Equal("Id=@id", specification.Sql);
             Assert.Equal(1, specification.Parameters.id);
@@ -55,7 +55,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void EmptySpecification_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification = SqlSpecification.Empty<int>();
+            var specification = SqlSpecification.Empty();
 
             var sql = CreateSql(query, specification);
 
@@ -66,8 +66,8 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         [Fact]
         public void EmptySpecification_And_Test()
         {
-            var empty = SqlSpecification.Empty<int>();
-            var other = SqlSpecification.Create<int>("id=1");
+            var empty = SqlSpecification.Empty();
+            var other = SqlSpecification.Create("id=1");
 
             var specification = empty.And(other);
 
@@ -77,8 +77,8 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         [Fact]
         public void EmptySpecification_Or_Test()
         {
-            var empty = SqlSpecification.Empty<int>();
-            var other = SqlSpecification.Create<int>("id=1");
+            var empty = SqlSpecification.Empty();
+            var other = SqlSpecification.Create("id=1");
 
             var specification = empty.Or(other);
 
@@ -88,7 +88,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         [Fact]
         public void EmptySpecification_Not_Test()
         {
-            var empty = SqlSpecification.Empty<int>();
+            var empty = SqlSpecification.Empty();
 
             var specification = empty.Not();
 
@@ -99,7 +99,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void TrueSpecification_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification = SqlSpecification.True<int>();
+            var specification = SqlSpecification.True();
 
             var sql = CreateSql(query, specification);
 
@@ -110,8 +110,8 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         [Fact]
         public void TrueSpecification_And_Test()
         {
-            var tru = SqlSpecification.True<int>();
-            var other = SqlSpecification.Create<int>("id=1");
+            var tru = SqlSpecification.True();
+            var other = SqlSpecification.Create("id=1");
 
             var specification = tru.And(other);
 
@@ -121,8 +121,8 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         [Fact]
         public void TrueSpecification_Or_Test()
         {
-            var tru = SqlSpecification.True<int>();
-            var other = SqlSpecification.Create<int>("id=1");
+            var tru = SqlSpecification.True();
+            var other = SqlSpecification.Create("id=1");
 
             var specification = tru.Or(other);
 
@@ -132,7 +132,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         [Fact]
         public void TrueSpecification_Not_Test()
         {
-            var tru = SqlSpecification.True<int>();
+            var tru = SqlSpecification.True();
 
             var specification = tru.Not();
 
@@ -143,7 +143,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void FalseSpecification_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification = SqlSpecification.False<int>();
+            var specification = SqlSpecification.False();
 
             var sql = CreateSql(query, specification);
 
@@ -154,8 +154,8 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         [Fact]
         public void FalseSpecification_And_Test()
         {
-            var flse = SqlSpecification.False<int>();
-            var other = SqlSpecification.Create<int>("id=1");
+            var flse = SqlSpecification.False();
+            var other = SqlSpecification.Create("id=1");
 
             var specification = flse.And(other);
 
@@ -165,8 +165,8 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         [Fact]
         public void FalseSpecification_Or_Test()
         {
-            var flse = SqlSpecification.False<int>();
-            var other = SqlSpecification.Create<int>("id=1");
+            var flse = SqlSpecification.False();
+            var other = SqlSpecification.Create("id=1");
 
             var specification = flse.Or(other);
 
@@ -176,7 +176,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         [Fact]
         public void FalseSpecification_Not_Test()
         {
-            var flse = SqlSpecification.False<int>();
+            var flse = SqlSpecification.False();
 
             var specification = flse.Not();
 
@@ -187,7 +187,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void AndSpecification_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification = SqlSpecification.Create<int>("Id=1").And(SqlSpecification.Create<int>("Id=2"));
+            var specification = SqlSpecification.Create("Id=1").And(SqlSpecification.Create("Id=2"));
 
             var sql = CreateSql(query, specification);
 
@@ -197,8 +197,8 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         [Fact]
         public void AndSpecification_Parameters_Test()
         {
-            var specification1 = SqlSpecification.Create<int>("Id=@id1", new { id1 = 1 });
-            var specification2 = SqlSpecification.Create<int>("Id=@id2", new { id2 = 2 });
+            var specification1 = SqlSpecification.Create("Id=@id1", new { id1 = 1 });
+            var specification2 = SqlSpecification.Create("Id=@id2", new { id2 = 2 });
             var specification = specification1.And(specification2);
 
             Assert.Equal(1, specification.Parameters.id1);
@@ -209,7 +209,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void OrSpecification_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification = SqlSpecification.Create<int>("Id=1").Or(SqlSpecification.Create<int>("Id=2"));
+            var specification = SqlSpecification.Create("Id=1").Or(SqlSpecification.Create("Id=2"));
 
             var sql = CreateSql(query, specification);
 
@@ -219,8 +219,8 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         [Fact]
         public void OrSpecification_Parameters_Test()
         {
-            var specification1 = SqlSpecification.Create<int>("Id=@id1", new { id1 = 1 });
-            var specification2 = SqlSpecification.Create<int>("Id=@id2", new { id2 = 2 });
+            var specification1 = SqlSpecification.Create("Id=@id1", new { id1 = 1 });
+            var specification2 = SqlSpecification.Create("Id=@id2", new { id2 = 2 });
             var specification = specification1.Or(specification2);
 
             Assert.Equal(1, specification.Parameters.id1);
@@ -231,7 +231,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void NotSpecification_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification = SqlSpecification.Create<int>("Id=1").Not();
+            var specification = SqlSpecification.Create("Id=1").Not();
 
             var sql = CreateSql(query, specification);
 
@@ -242,8 +242,8 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void ComposeSpecification_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification1 = SqlSpecification.Create<int>("Id=1").Not();
-            var specification2 = SqlSpecification.Create<int>("Id=1").And(SqlSpecification.Create<int>("Id=2"));
+            var specification1 = SqlSpecification.Create("Id=1").Not();
+            var specification2 = SqlSpecification.Create("Id=1").And(SqlSpecification.Create("Id=2"));
             var specification = specification1.Or(specification2);
 
             var sql = CreateSql(query, specification);
@@ -255,7 +255,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void TrueSpecification_Negative_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification = SqlSpecification.True<int>().Not();
+            var specification = SqlSpecification.True().Not();
 
             var sql = CreateSql(query, specification);
 
@@ -266,7 +266,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void FalseSpecification_Negative_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification = SqlSpecification.False<int>().Not();
+            var specification = SqlSpecification.False().Not();
 
             var sql = CreateSql(query, specification);
 
@@ -277,7 +277,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void NotSpecification_Negative_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification = SqlSpecification.Create<int>("Id=1").Not().Not();
+            var specification = SqlSpecification.Create("Id=1").Not().Not();
 
             var sql = CreateSql(query, specification);
 
@@ -288,8 +288,8 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void AndOperator_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification1 = SqlSpecification.Create<int>("Id=1");
-            var specification2 = SqlSpecification.Create<int>("Id=2");
+            var specification1 = SqlSpecification.Create("Id=1");
+            var specification2 = SqlSpecification.Create("Id=2");
             var specification = specification1 & specification2;
 
             var sql = CreateSql(query, specification);
@@ -301,8 +301,8 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void OrOperator_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification1 = SqlSpecification.Create<int>("Id=1");
-            var specification2 = SqlSpecification.Create<int>("Id=2");
+            var specification1 = SqlSpecification.Create("Id=1");
+            var specification2 = SqlSpecification.Create("Id=2");
             var specification = specification1 | specification2;
 
             var sql = CreateSql(query, specification);
@@ -314,7 +314,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void NotOperator_Test()
         {
             const string query = "SELECT * FROM Table";
-            var specification1 = SqlSpecification.Create<int>("Id=1");
+            var specification1 = SqlSpecification.Create("Id=1");
             var specification = !specification1;
             var sql = CreateSql(query, specification);
 

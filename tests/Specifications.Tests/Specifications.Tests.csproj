@@ -17,7 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Infrastructure\Specifications\Specifications.csproj" />
+    <ProjectReference Include="..\..\src\Extensions\Byndyusoft.Extensions.Specifications.Abstractions\Byndyusoft.Extensions.Specifications.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Extensions\Byndyusoft.Extensions.Specifications.Complex\Byndyusoft.Extensions.Specifications.Complex.csproj" />
+    <ProjectReference Include="..\..\src\Extensions\Byndyusoft.Extensions.Specifications.Linq\Byndyusoft.Extensions.Specifications.Linq.csproj" />
+    <ProjectReference Include="..\..\src\Extensions\Byndyusoft.Extensions.Specifications.Sql\Byndyusoft.Extensions.Specifications.Sql.csproj" />
   </ItemGroup>
 
 </Project>

@@ -19,7 +19,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         [Fact]
         public void AsSql_Test()
         {
-            var specification = SqlSpecification.Create<int>("Id=1");
+            SqlSpecification<int> specification = SqlSpecification.Create("Id=1");
 
             var linq = specification.AsSql();
 

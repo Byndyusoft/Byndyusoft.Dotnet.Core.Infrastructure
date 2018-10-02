@@ -1,8 +1,8 @@
 ﻿namespace Byndyusoft.Extensions.Specifications.Linq
 {
-    internal static class SpecificationExtensions
+    public static class LinqSpecificationExtensions
     {
-        public static ILinqSpecification<T> AsLinq<T>(this ISpecification specification)
+        public static ILinqSpecification<T> AsLinq<T>(this ISpecification<T> specification)
         {
             return (ILinqSpecification<T>)specification;
         }

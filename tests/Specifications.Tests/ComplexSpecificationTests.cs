@@ -38,7 +38,7 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         public void Create_Test()
         {
             var linq = LinqSpecification.Create<int>(x => x == 1);
-            var sql = SqlSpecification.Create<int>("Id=1");
+            var sql = SqlSpecification.Create("Id=1");
             var specification = ComplexSpecification.Create(linq, sql);
 
             Assert.Equal(linq, specification.Linq);
@@ -48,8 +48,8 @@ namespace Byndyusoft.Extensions.Specifications.Tests
         [Fact]
         public void Create_From_Sql_Test()
         {
-            var sql = SqlSpecification.Create<int>("Id=1");
-            var specification = ComplexSpecification.Create(sql);
+            var sql = SqlSpecification.Create("Id=1");
+            var specification = ComplexSpecification.Create<int>(sql);
 
             Assert.True(specification.Linq.IsEmpty);
             Assert.Equal(sql, specification.Sql);

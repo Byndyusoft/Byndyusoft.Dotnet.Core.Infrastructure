@@ -2,9 +2,9 @@
 {
     public static class SqlSpecificationExtensions
     {
-        public static ISqlSpecification<T> AsSql<T>(this ISpecification specification)
+        public static ISqlSpecification<T> AsSql<T>(this ISpecification<T> specification)
         {
-            return (ISqlSpecification<T>)specification;
+            return (SqlSpecification<T>)specification;
         }
 
         public static string Where(this string query, ISqlSpecification specification)
