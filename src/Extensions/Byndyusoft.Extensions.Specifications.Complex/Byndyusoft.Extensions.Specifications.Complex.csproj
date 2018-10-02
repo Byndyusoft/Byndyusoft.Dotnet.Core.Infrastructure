@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Byndyusoft.Extensions.Specifications.Complex</AssemblyName>
+    <RootNamespace>Byndyusoft.Extensions.Specifications.Complex</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Byndyusoft.Extensions.Specifications.Linq\Byndyusoft.Extensions.Specifications.Linq.csproj" />
+    <ProjectReference Include="..\Byndyusoft.Extensions.Specifications.Sql\Byndyusoft.Extensions.Specifications.Sql.csproj" />
+  </ItemGroup>
+
+</Project>
