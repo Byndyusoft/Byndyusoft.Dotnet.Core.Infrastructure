@@ -1,0 +1,22 @@
+<div>
+  <p>
+      FIXME not in sync with the english version. Needs the help of some portuguese/brazilian translator. 
+      <br>
+      O plugin do MSTest converte relat&oacute;rios de teste em formato TRX em relat&oacute;rios XML do JUnit para que possam ser interpretados pelo Hudson.
+	<br> 
+
+	Para habilitar as funcionalidades do plugin voc&ecirc; precisa configurar seu <i>build</i> para primeiramente executar o MSTest. Exemplo:<br><br> 
+	"%PROGRAMFILES%\Microsoft Visual Studio 9.0\Common7\IDE\MSTest.exe" /runconfig:MyTestProject\LocalTestRun.testrunconfig /testcontainer:MyTestProject\bin\Release\MyTestProject.dll /resultsfile:TestResults\testResults.trx<br><br>
+	e ent&atilde;o especificar o caminho para o arquivo TRX gerado pelo MSTest, como:  TestResults/testResults.trx.<br><br>
+	Você pode tamb&eacute;m executar multiplas <i>assemblies</i> de teste. A configura&ccedil;&atilde;o &eacute; parecida, basta adicionar outro <i>testcontainer</i>: <BR><BR>
+	"%PROGRAMFILES%\Microsoft Visual Studio 9.0\Common7\IDE\MSTest.exe" /runconfig:MyTestProject\LocalTestRun.testrunconfig /testcontainer:MyTestProject1\bin\Release\MyTestProject1.dll /testcontainer:MyTestProject2\bin\Release\MyTestProject2.dll /resultsfile:TestResults\testResults.trx<br><br>
+	O MSTest ir&aacute; executar todos os testes de todas as <i>assemblies</i> e ser&aacute; gerado o arquivo TRX especificado. 
+  </p>
+</div>
+
+ 
+
+
+
+
+ 

@@ -1,0 +1,43 @@
+# docker stack deploy --compose-file docker-compose.yml bsapp
+version: "3.4"
+
+networks:
+  bsapp_bsnet:
+    external: true
+
+services:
+  app:
+    image: ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${CONTAINER_TAG}
+#    extra_hosts:
+#     - "postgresql_stg:172.17.0.1"
+    build: 
+     context: ${contextpath}
+     args:
+       projectdll: ${projectdll}
+       projectpath: ${projectpath}
+       testspath: ${testspath}
+       arg1: ${arg1}
+       arg2: ${arg2}
+    networks:
+      - bsapp_bsnet
+    ports:
+     - "5000:5000"
+    restart: always
+    environment:
+      - ASPNETCORE_URLS=http://*:5000
+      - ASPNETCORE_ENVIRONMENT=${ENVIRONMENT}
+      - SERVICE_NAME={{.Service.Name}}
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        delay: 10s
+        order: start-first
+      placement:
+        constraints:
+          - node.role == ${NODEROLE}
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 64M
