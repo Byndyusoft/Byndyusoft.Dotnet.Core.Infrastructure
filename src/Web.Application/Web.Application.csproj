@@ -51,6 +51,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AspNetCore\ByndyuSoft.AspNetCore.Mvc.Formatters.MsgPack\ByndyuSoft.AspNetCore.Mvc.Formatters.MsgPack.csproj" />
     <ProjectReference Include="..\AspNetCore\ByndyuSoft.AspNetCore.Mvc.Formatters.ProtoBuf\ByndyuSoft.AspNetCore.Mvc.Formatters.ProtoBuf.csproj" />
     <ProjectReference Include="..\AspNetCore\ByndyuSoft.AspNetCore.Mvc.Formatters.Yaml\ByndyuSoft.AspNetCore.Mvc.Formatters.Yaml.csproj" />
     <ProjectReference Include="..\Infrastructure\CQRS.Abstractions\CQRS.Abstractions.csproj" />

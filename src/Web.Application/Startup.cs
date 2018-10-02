@@ -3,6 +3,7 @@
     using System;
     using System.Reflection;
     using Autofac;
+    using ByndyuSoft.AspNetCore.Mvc.Formatters.MsgPack;
     using ByndyuSoft.AspNetCore.Mvc.Formatters.ProtoBuf;
     using ByndyuSoft.AspNetCore.Mvc.Formatters.Yaml;
     using Controllers.ValuesController;
@@ -63,6 +64,7 @@
                 .AddProtoBufFormatters()
                 .AddYamlFormatters()
                 .AddXmlSerializerFormatters()
+                .AddMsgPackFormatters()
                 .AddJsonOptions(x =>
                                 {
                                     x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
