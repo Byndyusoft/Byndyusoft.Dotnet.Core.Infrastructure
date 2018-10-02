@@ -1,4 +1,4 @@
-﻿namespace ByndyuSoft.AspNetCore.Mvc.Formatters.ProtoBuf
+﻿namespace ByndyuSoft.AspNetCore.Mvc.Formatters.ProtoBuf.ModelBinding
 {
     using System;
     using System.Linq;
