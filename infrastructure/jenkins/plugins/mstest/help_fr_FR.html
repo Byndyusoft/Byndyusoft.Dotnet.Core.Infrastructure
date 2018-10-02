@@ -1,0 +1,23 @@
+<div>
+    <p>
+        Le m-plugin MSTest peut convertir les rapports de test au format TRX en rapport de testau format XML produit par JUnit. 
+        De cette façon, Hudson/Jenkins pourront les afficher sur le rapport de build.
+
+        <br>
+        D'abord, commencez à produire un rapport de test au format TRX. Des rapports en ce format pevent être produits par MSTest ou par VSTest.Console.
+        Pour exemple, la commande suivante:
+        <br>
+        <br> 
+        "%PROGRAMFILES%\Microsoft Visual Studio 9.0\Common7\IDE\MSTest.exe" /runconfig:MyTestProject\LocalTestRun.testrunconfig /testcontainer:MyTestProject\bin\Release\MyTestProject.dll /resultsfile:TestResults\testResults.trx
+        <br><br>
+        Produit un rapport en 'TestResults/testResults.trx'. Utiisez cette valeur en tant que chemin.
+        <br><br>
+        VSTest.Console ne permet plus de spécifier un chemin complet pour le rapport de test. Pour contourner ce problme, vous pouvez spécifier un patron Ant pour un fileset, comme 'TestResults/**/*.trx' (/ ou \ peuvent être utilisés sans importance).
+        <br><br>
+        Si vous utilisiez le vstestrunner-plugin, le chemin vers le fichier TRX serait disponible en tant que variable d'environnement. Vous pourriez donc utiliser une expression comme $VSTEST_RESULT_TRX ou ${VSTEST_RESULT_TRX}.
+        <br><br>
+        Dans les exemples ci-dessus, le caractère ' a été utilisé en tant que délimitateur des patrons. Il ne devra pas faire partie des patrons que vous allez spécifier.
+    </p>
+</div>
+
+
