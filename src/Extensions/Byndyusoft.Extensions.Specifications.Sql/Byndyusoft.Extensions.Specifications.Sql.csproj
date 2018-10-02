@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Byndyusoft.Extensions.Specifications.Sql</AssemblyName>
+    <RootNamespace>Byndyusoft.Extensions.Specifications.Sql</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Byndyusoft.Extensions.Specifications.Abstractions\Byndyusoft.Extensions.Specifications.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

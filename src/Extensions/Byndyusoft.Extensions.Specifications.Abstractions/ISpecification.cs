@@ -7,7 +7,7 @@
         bool IsFalse { get; }
     }
 
-    public interface ISpecification<T> : ISpecification
+    public interface ISpecification<T>
     {
     }
 }

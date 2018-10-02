@@ -60,6 +60,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Byndyusoft.Extensions.Speci
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Byndyusoft.Extensions.Specifications.Linq", "src\Extensions\Byndyusoft.Extensions.Specifications.Linq\Byndyusoft.Extensions.Specifications.Linq.csproj", "{B8DEFD89-9367-472A-B30A-F29CD5F2962E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Byndyusoft.Extensions.Specifications.Sql", "src\Extensions\Byndyusoft.Extensions.Specifications.Sql\Byndyusoft.Extensions.Specifications.Sql.csproj", "{F792A8C2-6854-41AB-84F2-12D220A7DE0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -142,6 +144,10 @@ Global
 		{B8DEFD89-9367-472A-B30A-F29CD5F2962E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8DEFD89-9367-472A-B30A-F29CD5F2962E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8DEFD89-9367-472A-B30A-F29CD5F2962E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F792A8C2-6854-41AB-84F2-12D220A7DE0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F792A8C2-6854-41AB-84F2-12D220A7DE0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F792A8C2-6854-41AB-84F2-12D220A7DE0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F792A8C2-6854-41AB-84F2-12D220A7DE0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -169,6 +175,7 @@ Global
 		{A5AB5506-CE7E-45F8-B8C7-0DE6CB6E23A2} = {E547DC46-5195-40B7-BB5B-CE9F5EE770BA}
 		{8488C137-2994-44F0-87E1-22531026C8FA} = {A5AB5506-CE7E-45F8-B8C7-0DE6CB6E23A2}
 		{B8DEFD89-9367-472A-B30A-F29CD5F2962E} = {A5AB5506-CE7E-45F8-B8C7-0DE6CB6E23A2}
+		{F792A8C2-6854-41AB-84F2-12D220A7DE0F} = {A5AB5506-CE7E-45F8-B8C7-0DE6CB6E23A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19C512B5-D17D-4DF5-9ED6-211376780DDA}
