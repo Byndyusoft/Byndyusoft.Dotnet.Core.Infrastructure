@@ -1,7 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>ByndyuSoft.AspNetCore.Mvc.Formatters.MsgPack</AssemblyName>
+    <RootNamespace>ByndyuSoft.AspNetCore.Mvc.Formatters.MsgPack</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageDescription Condition="'$(RepositoryBranch)'!=''">
+      $(Description)
+      Branch: $(RepositoryBranch)
+      Working tree: $(RepositoryUrl)/tree/$(RepositoryCommit)
+      Commit message: $(RepositoryCommitMessage)
+    </PackageDescription>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <Build>$([System.DateTime]::op_Subtraction($([System.DateTime]::get_UtcNow().get_Date()),$([System.DateTime]::new(2018,1,1))).get_TotalDays())</Build>
+    <AssemblyVersion>$(VersionPrefix).$(Build)</AssemblyVersion>
+    <FileVersion>$(VersionPrefix).$(Build)</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
