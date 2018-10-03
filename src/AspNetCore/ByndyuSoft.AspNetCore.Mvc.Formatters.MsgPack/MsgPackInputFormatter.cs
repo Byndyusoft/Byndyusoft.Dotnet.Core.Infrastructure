@@ -1,5 +1,6 @@
 ﻿namespace ByndyuSoft.AspNetCore.Mvc.Formatters.MsgPack
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using global::MsgPack;
@@ -20,18 +21,26 @@
 
         public override async Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)
         {
-            var request = context.HttpContext.Request;
-            var serializer = MessagePackSerializer.Get(context.ModelType);
-            using (var unpacker = Unpacker.Create(request.Body))
-            {
-                var model = await serializer.UnpackFromAsync(unpacker, CancellationToken.None);
-                if (model == null && !context.TreatEmptyInputAsDefaultValue)
-                {
-                    return InputFormatterResult.NoValue();
-                }
+            if (context == null) throw new ArgumentNullException(nameof(context));
 
-                return InputFormatterResult.Success(model);
+            var request = context.HttpContext.Request;
+
+            object model = null;
+            if (request.ContentLength > 0)
+            {
+                var serializer = MessagePackSerializer.Get(context.ModelType);
+                using (var unpacker = Unpacker.Create(request.Body))
+                {
+                    model = await serializer.UnpackFromAsync(unpacker, CancellationToken.None);
+                }
             }
+
+            if (model == null && !context.TreatEmptyInputAsDefaultValue)
+            {
+                return InputFormatterResult.NoValue();
+            }
+
+            return InputFormatterResult.Success(model);
         }
     }
 }

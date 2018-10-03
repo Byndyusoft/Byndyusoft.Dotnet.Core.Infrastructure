@@ -28,9 +28,13 @@
             if (context == null) throw new ArgumentNullException(nameof(context));
             if (selectedEncoding == null) throw new ArgumentNullException(nameof(selectedEncoding));
 
-            var serializer = _options.SerializerBuilder.Build();
+            if (context.Object == null)
+            {
+                return;
+            }
 
             var response = context.HttpContext.Response;
+            var serializer = _options.SerializerBuilder.Build();
             using (var writer = context.WriterFactory(response.Body, selectedEncoding))
             {
                 serializer.Serialize(writer, context.Object);

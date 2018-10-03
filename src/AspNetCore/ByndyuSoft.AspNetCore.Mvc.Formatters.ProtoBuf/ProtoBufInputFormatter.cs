@@ -45,7 +45,14 @@
 
         private InputFormatterResult ReadRequestBody(InputFormatterContext context)
         {
-            object model = Model.Deserialize(context.HttpContext.Request.Body, null, context.ModelType);
+            if (context == null) throw new ArgumentNullException(nameof(context));
+
+            var request = context.HttpContext.Request;
+            object model = null;
+            if (request.ContentLength > 0)
+            {
+                model = Model.Deserialize(request.Body, null, context.ModelType);
+            }
 
             if (model == null && !context.TreatEmptyInputAsDefaultValue)
             {

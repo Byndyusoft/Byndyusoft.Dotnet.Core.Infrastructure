@@ -1,5 +1,6 @@
 ﻿namespace ByndyuSoft.AspNetCore.Mvc.Formatters.MsgPack
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using global::MsgPack;
@@ -20,7 +21,14 @@
 
         public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
         {
+            if (context == null) throw new ArgumentNullException(nameof(context));
+
             var response = context.HttpContext.Response;
+            if (context.Object == null)
+            {
+                return;
+            }
+
             var serializer = MessagePackSerializer.Get(context.ObjectType);
             using (var packer = Packer.Create(response.Body))
             {

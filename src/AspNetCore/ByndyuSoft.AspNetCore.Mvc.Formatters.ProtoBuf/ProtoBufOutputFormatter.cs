@@ -28,11 +28,17 @@
 
         public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
         {
-            var response = context.HttpContext.Response;
+            if (context == null) throw new ArgumentNullException(nameof(context));
+
             var tcs = new TaskCompletionSource<object>();
             try
             {
-                Model.Serialize(response.Body, context.Object);
+                if (context.Object != null)
+                {
+                    var response = context.HttpContext.Response;
+                    Model.Serialize(response.Body, context.Object);
+                }
+
                 tcs.SetResult(null);
             }
             catch (Exception ex)

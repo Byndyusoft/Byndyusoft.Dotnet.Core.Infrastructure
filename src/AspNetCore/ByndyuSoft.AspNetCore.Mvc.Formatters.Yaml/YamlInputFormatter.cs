@@ -1,5 +1,6 @@
 ﻿namespace ByndyuSoft.AspNetCore.Mvc.Formatters.Yaml
 {
+    using System;
     using System.IO;
     using System.Text;
     using System.Threading.Tasks;
@@ -30,19 +31,26 @@
 
         private InputFormatterResult ReadRequestBody(InputFormatterContext context, Encoding encoding)
         {
+            if (context == null) throw new ArgumentNullException(nameof(context));
+
             var request = context.HttpContext.Request;
-            var serializer = _options.DeserializerBuilder.Build();
+            object model = null;
 
-            using (var reader = new StreamReader(request.Body, encoding))
+            if (request.ContentLength > 0)
             {
-                var model = serializer.Deserialize(reader, context.ModelType);
-                if (model == null && !context.TreatEmptyInputAsDefaultValue)
+                var serializer = _options.DeserializerBuilder.Build();
+                using (var reader = new StreamReader(request.Body, encoding))
                 {
-                    return InputFormatterResult.NoValue();
+                    model = serializer.Deserialize(reader, context.ModelType);
                 }
-
-                return InputFormatterResult.Success(model);
             }
+
+            if (model == null && !context.TreatEmptyInputAsDefaultValue)
+            {
+                return InputFormatterResult.NoValue();
+            }
+
+            return InputFormatterResult.Success(model);
         }
     }
 }
