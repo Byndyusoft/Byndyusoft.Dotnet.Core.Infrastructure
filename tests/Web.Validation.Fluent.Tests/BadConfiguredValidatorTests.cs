@@ -33,7 +33,7 @@
 
             output.WriteLine(data);
             Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
-            Assert.Contains($@"""exceptionMessage"": ""{errorMessage}""", data);
+            Assert.Contains($@"""exceptionMessage"":""{errorMessage}""", data);
 
         }
     }
