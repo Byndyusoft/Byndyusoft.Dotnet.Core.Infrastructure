@@ -3,14 +3,22 @@ pipeline {
     stages {        
         stage('Build containers') {   
             steps {                
-				sh "docker-compose -f infrastructure/monitoring/docker-compose.yml build"
-			//	sh "docker push local/swarmprom-node-exporter:v0.15.2"
-				sh "docker service rm bsapp_prometheus || echo service bsapp_prometheus not exists"
+                sh "docker-compose -f infrastructure/monitoring/docker-compose.yml build"
+                sh "docker service rm bsapp_prometheus || echo service bsapp_prometheus not exists"
                 sh "docker config rm bsapp_task_rules || echo config bsapp_task_rules not exists"
-				sh "docker service rm bsapp_postgres-exporter || echo service bsapp_postgres-exporter not exists"
+                sh "docker config rm bsapp_node_rules || echo config bsapp_node_rules not exists"
+                sh "docker service rm bsapp_postgres-exporter || echo service bsapp_postgres-exporter not exists"
                 sh "docker config rm bsapp_postgres-exporter || echo config bsapp_postgres-exporter not exists"
+                sh "docker service rm bsapp_caddy || echo service bsapp_caddy not exists"
+                sh "docker config rm bsapp_caddy_config || echo config bsapp_caddy_config not exists"
                 sh "docker stack deploy --compose-file infrastructure/monitoring/docker-compose.yml bsapp"
             }
         }
+        stage('CleanWorkspace') {
+                steps {
+                            cleanWs()
+            }
+        }
+    }
     }
 }

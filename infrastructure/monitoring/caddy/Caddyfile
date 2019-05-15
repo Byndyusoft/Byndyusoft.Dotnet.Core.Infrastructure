@@ -38,3 +38,13 @@
     tls off
 }
 
+:5601 {
+    basicauth / {$ADMIN_USER} {$ADMIN_PASSWORD}
+    proxy / kibana:5601 {
+            transparent
+        }
+
+    errors stderr
+    tls off
+}
+

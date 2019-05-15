@@ -1,0 +1,20 @@
+---
+actions:
+  1:
+    action: delete_indices
+    description: >-
+      Alias indices older than 31 days, with a prefix of bsapp.
+    options:
+      continue_if_exception: True
+      disable_action: False
+      ignore_empty_list: true
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: bsapp
+    - filtertype: age
+      source: creation_date
+      direction: older
+      timestring: '%Y.%m.%d'
+      unit: days
+      unit_count: 31
