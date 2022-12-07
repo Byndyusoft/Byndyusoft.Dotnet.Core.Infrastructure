@@ -1,9 +1,9 @@
 ﻿namespace Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementations.Commands
 {
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
     using Abstractions.Commands;
-    using CommandsFactory;
 
     /// <summary>
     /// Commands dispatcher standard implementation
@@ -18,30 +18,30 @@
         /// <param name="commandsFactory">Commands factory</param>
         public CommandsDispatcher(ICommandsFactory commandsFactory)
         {
-            if (commandsFactory == null)
-                throw new ArgumentNullException(nameof(commandsFactory));
-
-            _commandsFactory = commandsFactory;
+            _commandsFactory = commandsFactory ?? throw new ArgumentNullException(nameof(commandsFactory));
         }
-
+        
         /// <summary>
-        /// Method for synchronous commands execution
+        /// Method for asynchronous commands execution
         /// </summary>
         /// <typeparam name="TCommandContext">Command context type</typeparam>
         /// <param name="commandContext">Information needed for commands execution</param>
-        public void Execute<TCommandContext>(TCommandContext commandContext) where TCommandContext : ICommandContext
+        public Task ExecuteAsync<TCommandContext>(TCommandContext commandContext) 
+            where TCommandContext : ICommandContext
         {
-            _commandsFactory.CreateCommand<TCommandContext>().Execute(commandContext);
+            return ExecuteAsync(commandContext, CancellationToken.None);
         }
 
         /// <summary>
         /// Method for asynchronous commands execution
         /// </summary>
         /// <typeparam name="TCommandContext">Command context type</typeparam>
+        /// <param name="cancellationToken">A cancellation token.</param>
         /// <param name="commandContext">Information needed for commands execution</param>
-        public Task ExecuteAsync<TCommandContext>(TCommandContext commandContext) where TCommandContext : ICommandContext
+        public Task ExecuteAsync<TCommandContext>(TCommandContext commandContext, CancellationToken cancellationToken) 
+            where TCommandContext : ICommandContext
         {
-            return _commandsFactory.CreateAsyncCommand<TCommandContext>().Execute(commandContext);
+            return _commandsFactory.CreateCommand<TCommandContext>().Execute(commandContext, cancellationToken);
         }
     }
 }

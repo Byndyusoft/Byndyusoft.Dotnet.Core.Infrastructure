@@ -4,58 +4,61 @@
     using System.Linq.Expressions;
     using System.Reflection;
     using System.Runtime.ExceptionServices;
-    using Abstractions.Queries;
-    using QueriesFactory;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Abstractions.Queries;
 
-    /// <summary>
-    /// Queries dispatcher standart implementation
-    /// </summary>
     public class QueriesDispatcher : IQueriesDispatcher
     {
         private readonly IQueriesFactory _queriesFactory;
-
         private readonly MethodInfo _createQueryGenericDefinition;
         private readonly string _askMethodName;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="queriesFactory">Queries factory</param>
         public QueriesDispatcher(IQueriesFactory queriesFactory)
         {
-            if (queriesFactory == null)
-                throw new ArgumentNullException(nameof(queriesFactory));
+            _queriesFactory = queriesFactory ?? throw new ArgumentNullException(nameof(queriesFactory));
 
-            _queriesFactory = queriesFactory;
+            Expression<Func<IQueriesFactory, object>> createQueryExpression =
+                x => x.Create<ICriterion<object>, object>();
+            _createQueryGenericDefinition =
+                ((MethodCallExpression) createQueryExpression.Body).Method.GetGenericMethodDefinition();
 
-            Expression<Func<IQueriesFactory, IQuery<ICriterion<object>, object>>> fakeCreateCall = x => x.Create<ICriterion<object>, object>();
-            _createQueryGenericDefinition = ((MethodCallExpression)fakeCreateCall.Body).Method.GetGenericMethodDefinition();
-
-            Expression<Func<IQuery<ICriterion<object>, object>, object>> fakeAskCall = x => x.Ask(null);
-            _askMethodName = ((MethodCallExpression)fakeAskCall.Body).Method.Name;
+            _askMethodName = nameof(IQuery<ICriterion<object>, object>.Ask);
         }
 
-        /// <summary>
-        /// Method for queries execution
-        /// </summary>
-        /// <typeparam name="TResult">Query result type</typeparam>
-        /// <param name="criterion">Information needed for queries execution</param>
-        /// <returns>Query result</returns>
-        public TResult Execute<TResult>(ICriterion<TResult> criterion)
+        public Task<TResult> Execute<TResult>(ICriterion<TResult> criterion, CancellationToken cancellationToken)
         {
-            var query = _createQueryGenericDefinition.MakeGenericMethod(criterion.GetType(), typeof(TResult)).Invoke(_queriesFactory, null);
-            var askMethodDefinition = query.GetType().GetRuntimeMethod(_askMethodName, new[] { criterion.GetType() });
+            cancellationToken.ThrowIfCancellationRequested();
 
+            var createMethod = _createQueryGenericDefinition.MakeGenericMethod(criterion.GetType(), typeof(TResult));
+
+            var query = createMethod.Invoke(_queriesFactory, null)!;
+            var ackMethod = query.GetType().GetRuntimeMethod(
+                _askMethodName,
+                new[]
+                {
+                    criterion.GetType()
+                })!;
             try
             {
-                return (TResult)askMethodDefinition.Invoke(query, new object[] { criterion });
+                return (Task<TResult>) ackMethod.Invoke(
+                    query,
+                    new object[]
+                    {
+                        criterion
+                    })!;
             }
-            catch (TargetInvocationException ex)
+            catch (TargetInvocationException ex) when (ex.InnerException != null)
             {
-                ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
+                ExceptionDispatchInfo.Capture(ex.InnerException!).Throw();
             }
 
-            return default(TResult);
+            return default!;
+        }
+
+        public Task<TResult> Execute<TResult>(ICriterion<TResult> criterion)
+        {
+            return Execute(criterion, CancellationToken.None);
         }
     }
 }

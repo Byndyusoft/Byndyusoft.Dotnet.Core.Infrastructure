@@ -4,6 +4,8 @@
 
     public interface ISessionsFactory
     {
-        ISession Create(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
+        ISession Create();
+
+        ISession Create(IsolationLevel isolationLevel);
     }
 }

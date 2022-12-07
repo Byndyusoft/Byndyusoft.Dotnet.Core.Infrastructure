@@ -3,64 +3,91 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Data.Common;
+    using System.Runtime.CompilerServices;
+    using System.Threading;
     using System.Threading.Tasks;
     using global::Dapper;
 
     public class Session : ISession
     {
-        private readonly IDbConnection _connection;
-        private readonly IDbTransaction _transaction;
+        private DbConnection _connection;
+        private DbTransaction? _transaction;
 
-        public Session(IDbConnection connection, IDbTransaction transaction)
+        public Session(DbConnection connection, DbTransaction? transaction)
         {
-            if (connection == null)
-                throw new ArgumentNullException(nameof(connection));
-            if (transaction == null)
-                throw new ArgumentNullException(nameof(transaction));
-
-            _connection = connection;
+            _connection = connection ?? throw new ArgumentNullException(nameof(connection));
             _transaction = transaction;
         }
 
-        public IEnumerable<TSource> Query<TSource>(string sql, object param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
+        public async IAsyncEnumerable<TSource> Query<TSource>(
+            string sql, 
+            object? param = null, 
+            int? commandTimeout = null,
+            CommandType? commandType = null,
+            [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
-            return _connection.Query<TSource>(sql, param, _transaction, buffered, commandTimeout, commandType);
+            var command = new CommandDefinition(sql, param, _transaction, commandTimeout, commandType,
+                cancellationToken: cancellationToken);
+
+            using var reader = await _connection.ExecuteReaderAsync(command);
+            var rowParser = reader.GetRowParser<TSource>();
+
+            while (await reader.ReadAsync(cancellationToken).ConfigureAwait(false))
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                yield return rowParser(reader);
+            }
         }
 
-        public Task<IEnumerable<TSource>> QueryAsync<TSource>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
+        public Task<IEnumerable<TSource>> QueryAsync<TSource>(
+            string sql, 
+            object? param = null, 
+            int? commandTimeout = null, 
+            CommandType? commandType = null,
+            CancellationToken cancellationToken = default)
         {
-            return _connection.QueryAsync<TSource>(sql, param, _transaction, commandTimeout, commandType);
+            var command = new CommandDefinition(sql, param, _transaction, commandTimeout, commandType,
+                cancellationToken: cancellationToken);
+            return _connection.QueryAsync<TSource>(command);
         }
 
-        public int Execute(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
+        public Task<int> ExecuteAsync(
+            string sql, 
+            object? param = null, 
+            int? commandTimeout = null, 
+            CommandType? commandType = null,
+            CancellationToken cancellationToken = default)
         {
-            return _connection.Execute(sql, param, _transaction, commandTimeout, commandType);
+            var command = new CommandDefinition(sql, param, _transaction, commandTimeout, commandType,
+                cancellationToken: cancellationToken);
+            return _connection.ExecuteAsync(command);
         }
 
-        public Task<int> ExecuteAsync(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
+        public Task<TSource> ExecuteScalarAsync<TSource>(
+            string sql, 
+            object? param = null, 
+            int? commandTimeout = null, 
+            CommandType? commandType = null,
+            CancellationToken cancellationToken = default)
         {
-            return _connection.ExecuteAsync(sql, param, _transaction, commandTimeout, commandType);
-        }
-
-        public TSource ExecuteScalar<TSource>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
-        {
-            return _connection.ExecuteScalar<TSource>(sql, param, _transaction, commandTimeout, commandType);
-        }
-
-        public Task<TSource> ExecuteScalarAsync<TSource>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
-        {
-            return _connection.ExecuteScalarAsync<TSource>(sql, param, _transaction, commandTimeout, commandType);
+            var command = new CommandDefinition(sql, param, _transaction, commandTimeout, commandType,
+                cancellationToken: cancellationToken);
+            return _connection.ExecuteScalarAsync<TSource>(command);
         }
 
         public void Commit()
         {
-            _transaction.Commit();
+            _transaction?.Commit();
         }
 
         public void Dispose()
         {
-            _transaction.Dispose();
+            _transaction?.Dispose();
+            _transaction = null;
+
             _connection.Dispose();
+            _connection = null!;
         }
     }
 }

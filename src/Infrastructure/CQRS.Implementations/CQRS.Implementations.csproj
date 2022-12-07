@@ -1,24 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard1.1</TargetFramework>
-    <AssemblyName>Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementations</AssemblyName>
-    <RootNamespace>Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementations</RootNamespace>
-    <Description>Implementation of the CQRS pattern</Description>
-    <PackageDescription Condition="'$(RepositoryBranch)'!=''">
-$(Description)
-Branch: $(RepositoryBranch)
-Working tree: $(RepositoryUrl)/tree/$(RepositoryCommit)
-Commit message: $(RepositoryCommitMessage)
-    </PackageDescription>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AssemblyName>Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementations</AssemblyName>
+		<RootNamespace>Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementations</RootNamespace>
+		<Description>Implementation of the CQRS pattern</Description>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.8.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CQRS.Abstractions\CQRS.Abstractions.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\CQRS.Abstractions\CQRS.Abstractions.csproj" />
+	</ItemGroup>
 
 </Project>

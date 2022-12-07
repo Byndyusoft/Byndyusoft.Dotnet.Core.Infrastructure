@@ -1,0 +1,38 @@
+name: push
+
+on:
+  - push
+
+jobs:
+  push:
+    name: push
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+    env:
+      DOTNET_NOLOGO: true
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install dotnet 3.1
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+
+      - name: install dotnet 6.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      - name: install packages
+        run: dotnet restore
+
+      - name: build
+        run: dotnet build --no-restore
+
+      - name: test
+        run: dotnet test --no-restore --verbosity normal
