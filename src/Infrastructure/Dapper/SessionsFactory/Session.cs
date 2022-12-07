@@ -81,7 +81,7 @@
             _transaction?.Commit();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _transaction?.Dispose();
             _transaction = null;
