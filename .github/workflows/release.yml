@@ -36,7 +36,7 @@ jobs:
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           INCLUDE_SYMBOLS: true
 
-      - name: publish publish Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementations
+      - name: publish Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementations
         uses: alirezanet/publish-nuget@v3.0.0
         with:
           PROJECT_FILE_PATH: src/Infrastructure/CQRS.Implementations/CQRS.Implementations.csproj
