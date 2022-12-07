@@ -2,39 +2,64 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Data.Common;
+    using System.Runtime.CompilerServices;
+    using System.Threading;
     using System.Threading.Tasks;
     using global::Dapper;
 
     public static class DbConnectionExtensions
     {
-        public static IEnumerable<TSource> Query<TSource>(this IDbConnection connection, QueryObject queryObject, SqlExecutionOptions executionOptions = null)
+        public static async IAsyncEnumerable<TSource> Query<TSource>(
+            this DbConnection connection,
+            QueryObject queryObject,
+            SqlExecutionOptions? executionOptions = null,
+            [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
-            return connection.Query<TSource>(queryObject.Sql, queryObject.QueryParams, commandTimeout: executionOptions?.CommandTimeoutSeconds);
+            var command = new CommandDefinition(queryObject.Sql, queryObject.QueryParams, null, executionOptions?.CommandTimeoutSeconds,
+                cancellationToken: cancellationToken);
+
+            using var reader = await connection.ExecuteReaderAsync(command);
+            var rowParser = reader.GetRowParser<TSource>();
+
+            while (await reader.ReadAsync(cancellationToken).ConfigureAwait(false))
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                yield return rowParser(reader);
+            }
         }
 
-        public static Task<IEnumerable<TSource>> QueryAsync<TSource>(this IDbConnection connection, QueryObject queryObject, SqlExecutionOptions executionOptions = null)
+        public static Task<IEnumerable<TSource>> QueryAsync<TSource>(
+            this IDbConnection connection,
+            QueryObject queryObject,
+            SqlExecutionOptions? executionOptions = null,
+            CancellationToken cancellationToken = default)
         {
-            return connection.QueryAsync<TSource>(queryObject.Sql, queryObject.QueryParams, commandTimeout: executionOptions?.CommandTimeoutSeconds);
+            var command = new CommandDefinition(queryObject.Sql, queryObject.QueryParams, null, executionOptions?.CommandTimeoutSeconds,
+                cancellationToken: cancellationToken);
+            return connection.QueryAsync<TSource>(command);
         }
 
-        public static int Execute(this IDbConnection connection, QueryObject queryObject, SqlExecutionOptions executionOptions = null)
+        public static Task<int> ExecuteAsync(
+            this IDbConnection connection,
+            QueryObject queryObject,
+            SqlExecutionOptions? executionOptions = null,
+        CancellationToken cancellationToken = default)
         {
-            return connection.Execute(queryObject.Sql, queryObject.QueryParams, commandTimeout: executionOptions?.CommandTimeoutSeconds);
+            var command = new CommandDefinition(queryObject.Sql, queryObject.QueryParams, null, executionOptions?.CommandTimeoutSeconds,
+                cancellationToken: cancellationToken);
+            return connection.ExecuteAsync(command);
         }
 
-        public static Task<int> ExecuteAsync(this IDbConnection connection, QueryObject queryObject, SqlExecutionOptions executionOptions = null)
+        public static Task<TSource> ExecuteScalarAsync<TSource>(
+            this IDbConnection connection,
+            QueryObject queryObject,
+            SqlExecutionOptions? executionOptions = null,
+            CancellationToken cancellationToken = default)
         {
-            return connection.ExecuteAsync(queryObject.Sql, queryObject.QueryParams, commandTimeout: executionOptions?.CommandTimeoutSeconds);
-        }
-
-        public static TSource ExecuteScalar<TSource>(this IDbConnection connection, QueryObject queryObject, SqlExecutionOptions executionOptions = null)
-        {
-            return connection.ExecuteScalar<TSource>(queryObject.Sql, queryObject.QueryParams, commandTimeout: executionOptions?.CommandTimeoutSeconds);
-        }
-
-        public static Task<TSource> ExecuteScalarAsync<TSource>(this IDbConnection connection, QueryObject queryObject, SqlExecutionOptions executionOptions = null)
-        {
-            return connection.ExecuteScalarAsync<TSource>(queryObject.Sql, queryObject.QueryParams, commandTimeout: executionOptions?.CommandTimeoutSeconds);
+            var command = new CommandDefinition(queryObject.Sql, queryObject.QueryParams, null, executionOptions?.CommandTimeoutSeconds,
+                cancellationToken: cancellationToken);
+            return connection.ExecuteScalarAsync<TSource>(command);
         }
     }
 }

@@ -17,7 +17,7 @@
         public QueryObject(string sql)
         {
             if (string.IsNullOrEmpty(sql))
-                throw new ArgumentNullException("sql");
+                throw new ArgumentNullException(nameof(sql));
 
             Sql = sql;
         }
@@ -40,6 +40,6 @@
         /// <summary>
         ///     Parameter list
         /// </summary>
-        public object QueryParams { get; private set; }
+        public object? QueryParams { get; private set; }
     }
 }

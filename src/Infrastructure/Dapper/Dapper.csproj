@@ -1,22 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Byndyusoft.Dotnet.Core.Infrastructure.Dapper</AssemblyName>
-    <RootNamespace>Byndyusoft.Dotnet.Core.Infrastructure.Dapper</RootNamespace>
-    <Description>Helpers and extensions for Dapper</Description>
-    <PackageDescription Condition="'$(RepositoryBranch)'!=''">
-$(Description)
-Branch: $(RepositoryBranch)
-Working tree: $(RepositoryUrl)/tree/$(RepositoryCommit)
-Commit message: $(RepositoryCommitMessage)
-    </PackageDescription>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AssemblyName>Byndyusoft.Dotnet.Core.Infrastructure.Dapper</AssemblyName>
+		<RootNamespace>Byndyusoft.Dotnet.Core.Infrastructure.Dapper</RootNamespace>
+		<Description>Helpers and extensions for Dapper</Description>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Dapper" Version="1.50.5" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Dapper" Version="2.0.4" />
+		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="1.0.0" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+	</ItemGroup>
 
 </Project>

@@ -1,8 +1,0 @@
-<Project>
- <PropertyGroup>
-   <VersionPrefix>1.0.1</VersionPrefix>
-   <Build>$([System.DateTime]::op_Subtraction($([System.DateTime]::get_UtcNow().get_Date()),$([System.DateTime]::new(2018,1,1))).get_TotalDays())</Build>
-   <AssemblyVersion>$(VersionPrefix).$(Build)</AssemblyVersion>
-   <FileVersion>$(VersionPrefix).$(Build)</FileVersion>
- </PropertyGroup>
-</Project>

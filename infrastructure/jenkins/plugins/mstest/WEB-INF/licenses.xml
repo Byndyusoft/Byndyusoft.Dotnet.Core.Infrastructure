@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<l:dependencies xmlns:l='licenses' groupId='org.jvnet.hudson.plugins' artifactId='mstest' version='0.23'><l:dependency name='MSTest plugin' groupId='org.jvnet.hudson.plugins' artifactId='mstest' version='0.23' url='http://wiki.jenkins-ci.org/display/JENKINS/MSTest+Plugin'><l:description>Generates test reports for MSTest.</l:description></l:dependency></l:dependencies>

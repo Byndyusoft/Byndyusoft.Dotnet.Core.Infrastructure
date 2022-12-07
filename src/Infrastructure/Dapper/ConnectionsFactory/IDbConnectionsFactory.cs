@@ -1,9 +1,9 @@
 ﻿namespace Byndyusoft.Dotnet.Core.Infrastructure.Dapper.ConnectionsFactory
 {
-    using System.Data;
+    using System.Data.Common;
 
     public interface IDbConnectionsFactory
     {
-        IDbConnection Create();
+        DbConnection Create();
     }
 }

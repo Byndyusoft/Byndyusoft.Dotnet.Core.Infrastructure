@@ -3,18 +3,39 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading;
     using System.Threading.Tasks;
 
     public interface ISession : IDisposable 
     {
-        IEnumerable<TSource> Query<TSource>(string sql, object param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null);
-        Task<IEnumerable<TSource>> QueryAsync<TSource>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null);
+        IAsyncEnumerable<TSource> Query<TSource>(
+            string sql,
+            object? param = null,
+            int? commandTimeout = null,
+            CommandType? commandType = null,
+            CancellationToken cancellationToken = default);
 
-        int Execute(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null);
-        Task<int> ExecuteAsync(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null);
 
-        TSource ExecuteScalar<TSource>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null);
-        Task<TSource> ExecuteScalarAsync<TSource>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null);
+        Task<IEnumerable<TSource>> QueryAsync<TSource>(
+            string sql, 
+            object? param = null, 
+            int? commandTimeout = null, 
+            CommandType? commandType = null,
+            CancellationToken cancellationToken = default);
+
+        Task<int> ExecuteAsync(
+            string sql, 
+            object? param = null, 
+            int? commandTimeout = null, 
+            CommandType? commandType = null,
+            CancellationToken cancellationToken = default);
+
+        Task<TSource> ExecuteScalarAsync<TSource>(
+            string sql, 
+            object? param = null, 
+            int? commandTimeout = null,
+            CommandType? commandType = null,
+            CancellationToken cancellationToken = default);
 
         void Commit();
     }

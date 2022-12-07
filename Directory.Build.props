@@ -1,0 +1,9 @@
+<Project>
+	<PropertyGroup>
+		<Authors>Byndyusoft</Authors>
+		<RepositoryUrl>https://github.com/Byndyusoft/Byndyusoft.Dotnet.Core.Infrastructure</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<Nullable>enable</Nullable>
+		<LangVersion>8</LangVersion>
+	</PropertyGroup>
+</Project>

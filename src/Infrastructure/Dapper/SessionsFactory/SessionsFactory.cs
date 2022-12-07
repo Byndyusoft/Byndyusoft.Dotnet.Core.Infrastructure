@@ -10,17 +10,15 @@
 
         public SessionsFactory(IDbConnectionsFactory dbConnectionsFactory)
         {
-            if (dbConnectionsFactory == null)
-                throw new ArgumentNullException(nameof(dbConnectionsFactory));
-
-            _dbConnectionsFactory = dbConnectionsFactory;
+            _dbConnectionsFactory = dbConnectionsFactory ?? throw new ArgumentNullException(nameof(dbConnectionsFactory));
         }
 
-        public ISession Create(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
+        public ISession Create() => Create(IsolationLevel.Unspecified);
+        
+        public ISession Create(IsolationLevel isolationLevel)
         {
             var connection = _dbConnectionsFactory.Create();
             var transaction = connection.BeginTransaction(isolationLevel);
-
             return new Session(connection, transaction);
         }
     }

@@ -1,40 +1,63 @@
 ﻿namespace Byndyusoft.Dotnet.Core.Infrastructure.Dapper.Extensions
 {
     using System.Collections.Generic;
+    using System.Threading;
     using System.Threading.Tasks;
     using Dapper;
     using SessionsFactory;
 
     public static class SessionExtensions
     {
-        public static IEnumerable<TSource> Query<TSource>(this ISession session, QueryObject queryObject, SqlExecutionOptions executionOptions)
+        public static IAsyncEnumerable<TSource> Query<TSource>(
+            this ISession session,
+            QueryObject queryObject,
+            SqlExecutionOptions executionOptions,
+            CancellationToken cancellationToken = default)
         {
-            return session.Query<TSource>(queryObject.Sql, queryObject.QueryParams, commandTimeout: executionOptions.CommandTimeoutSeconds);
+            return session.Query<TSource>(
+                queryObject.Sql,
+                queryObject.QueryParams,
+                executionOptions.CommandTimeoutSeconds,
+                cancellationToken: cancellationToken);
         }
 
-        public static Task<IEnumerable<TSource>> QueryAsync<TSource>(this ISession session, QueryObject queryObject, SqlExecutionOptions executionOptions)
+        public static Task<IEnumerable<TSource>> QueryAsync<TSource>(
+            this ISession session, 
+            QueryObject queryObject, 
+            SqlExecutionOptions executionOptions,
+            CancellationToken cancellationToken = default)
         {
-            return session.QueryAsync<TSource>(queryObject.Sql, queryObject.QueryParams, executionOptions.CommandTimeoutSeconds);
+            return session.QueryAsync<TSource>(
+                queryObject.Sql, 
+                queryObject.QueryParams, 
+                executionOptions.CommandTimeoutSeconds, 
+                cancellationToken: cancellationToken);
         }
 
-        public static int Execute(this ISession session, QueryObject queryObject, SqlExecutionOptions executionOptions)
+        public static Task<int> ExecuteAsync(
+            this ISession session, 
+            QueryObject queryObject, 
+            SqlExecutionOptions executionOptions,
+            CancellationToken cancellationToken = default)
         {
-            return session.Execute(queryObject.Sql, queryObject.QueryParams, executionOptions.CommandTimeoutSeconds);
+            return session.ExecuteAsync(
+                queryObject.Sql, 
+                queryObject.QueryParams, 
+                executionOptions.CommandTimeoutSeconds, 
+                cancellationToken:cancellationToken);
         }
 
-        public static Task<int> ExecuteAsync(this ISession session, QueryObject queryObject, SqlExecutionOptions executionOptions)
+        public static Task<TSource> ExecuteScalarAsync<TSource>(
+            this ISession session, 
+            QueryObject queryObject, 
+            SqlExecutionOptions executionOptions,
+            CancellationToken cancellationToken = default)
         {
-            return session.ExecuteAsync(queryObject.Sql, queryObject.QueryParams, executionOptions.CommandTimeoutSeconds);
-        }
-
-        public static TSource ExecuteScalar<TSource>(this ISession session, QueryObject queryObject, SqlExecutionOptions executionOptions)
-        {
-            return session.ExecuteScalar<TSource>(queryObject.Sql, queryObject.QueryParams, executionOptions.CommandTimeoutSeconds);
-        }
-
-        public static Task<TSource> ExecuteScalarAsync<TSource>(this ISession session, QueryObject queryObject, SqlExecutionOptions executionOptions)
-        {
-            return session.ExecuteScalarAsync<TSource>(queryObject.Sql, queryObject.QueryParams, executionOptions.CommandTimeoutSeconds);
+            return session.ExecuteScalarAsync<TSource>(
+                queryObject.Sql, 
+                queryObject.QueryParams, 
+                executionOptions.CommandTimeoutSeconds, 
+                cancellationToken: cancellationToken);
         }
     }
 }
