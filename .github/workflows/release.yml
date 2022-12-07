@@ -27,7 +27,7 @@ jobs:
         run: dotnet build
         
       - name: publish Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Abstractions
-        uses: alirezanet/publish-nuget@v3.0.0
+        uses: alirezanet/publish-nuget@v3.0.2
         with:
           PROJECT_FILE_PATH: src/Infrastructure/CQRS.Abstractions/CQRS.Abstractions.csproj
           VERSION_FILE_PATH: src/Infrastructure/Directory.Build.props
@@ -36,8 +36,8 @@ jobs:
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           INCLUDE_SYMBOLS: true
 
-      - name: publish publish Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementations
-        uses: alirezanet/publish-nuget@v3.0.0
+      - name: publish Byndyusoft.Dotnet.Core.Infrastructure.CQRS.Implementations
+        uses: alirezanet/publish-nuget@v3.0.2
         with:
           PROJECT_FILE_PATH: src/Infrastructure/CQRS.Implementations/CQRS.Implementations.csproj
           VERSION_FILE_PATH: src/Infrastructure/Directory.Build.props
@@ -47,7 +47,7 @@ jobs:
           INCLUDE_SYMBOLS: true
 
       - name: publish Byndyusoft.Dotnet.Core.Infrastructure.Dapper
-        uses: alirezanet/publish-nuget@v3.0.0
+        uses: alirezanet/publish-nuget@v3.0.2
         with:
           PROJECT_FILE_PATH: src/Infrastructure/Dapper/Dapper.csproj
           VERSION_FILE_PATH: src/Infrastructure/Directory.Build.props
