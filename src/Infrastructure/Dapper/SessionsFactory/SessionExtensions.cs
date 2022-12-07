@@ -1,10 +1,9 @@
-﻿namespace Byndyusoft.Dotnet.Core.Infrastructure.Dapper.Extensions
+﻿namespace Byndyusoft.Dotnet.Core.Infrastructure.Dapper.SessionsFactory
 {
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Dapper;
-    using SessionsFactory;
 
     public static class SessionExtensions
     {
@@ -22,41 +21,41 @@
         }
 
         public static Task<IEnumerable<TSource>> QueryAsync<TSource>(
-            this ISession session, 
-            QueryObject queryObject, 
+            this ISession session,
+            QueryObject queryObject,
             SqlExecutionOptions executionOptions,
             CancellationToken cancellationToken = default)
         {
             return session.QueryAsync<TSource>(
-                queryObject.Sql, 
-                queryObject.QueryParams, 
-                executionOptions.CommandTimeoutSeconds, 
+                queryObject.Sql,
+                queryObject.QueryParams,
+                executionOptions.CommandTimeoutSeconds,
                 cancellationToken: cancellationToken);
         }
 
         public static Task<int> ExecuteAsync(
-            this ISession session, 
-            QueryObject queryObject, 
+            this ISession session,
+            QueryObject queryObject,
             SqlExecutionOptions executionOptions,
             CancellationToken cancellationToken = default)
         {
             return session.ExecuteAsync(
-                queryObject.Sql, 
-                queryObject.QueryParams, 
-                executionOptions.CommandTimeoutSeconds, 
-                cancellationToken:cancellationToken);
+                queryObject.Sql,
+                queryObject.QueryParams,
+                executionOptions.CommandTimeoutSeconds,
+                cancellationToken: cancellationToken);
         }
 
         public static Task<TSource> ExecuteScalarAsync<TSource>(
-            this ISession session, 
-            QueryObject queryObject, 
+            this ISession session,
+            QueryObject queryObject,
             SqlExecutionOptions executionOptions,
             CancellationToken cancellationToken = default)
         {
             return session.ExecuteScalarAsync<TSource>(
-                queryObject.Sql, 
-                queryObject.QueryParams, 
-                executionOptions.CommandTimeoutSeconds, 
+                queryObject.Sql,
+                queryObject.QueryParams,
+                executionOptions.CommandTimeoutSeconds,
                 cancellationToken: cancellationToken);
         }
     }

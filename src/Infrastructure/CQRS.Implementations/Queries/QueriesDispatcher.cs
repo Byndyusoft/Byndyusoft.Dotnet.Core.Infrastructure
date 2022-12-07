@@ -37,7 +37,8 @@
                 _askMethodName,
                 new[]
                 {
-                    criterion.GetType()
+                    criterion.GetType(),
+                    typeof(CancellationToken)
                 })!;
             try
             {
@@ -45,7 +46,8 @@
                     query,
                     new object[]
                     {
-                        criterion
+                        criterion,
+                        cancellationToken
                     })!;
             }
             catch (TargetInvocationException ex) when (ex.InnerException != null)

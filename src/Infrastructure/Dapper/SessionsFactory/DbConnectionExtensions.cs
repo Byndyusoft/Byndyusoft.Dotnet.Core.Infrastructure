@@ -1,12 +1,13 @@
-﻿namespace Byndyusoft.Dotnet.Core.Infrastructure.Dapper.Extensions
+﻿// ReSharper disable once CheckNamespace
+namespace System.Data
 {
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Data.Common;
-    using System.Runtime.CompilerServices;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using global::Dapper;
+    using Collections.Generic;
+    using Runtime.CompilerServices;
+    using Threading;
+    using Threading.Tasks;
+    using Byndyusoft.Dotnet.Core.Infrastructure.Dapper;
+    using Common;
+    using Dapper;
 
     public static class DbConnectionExtensions
     {
