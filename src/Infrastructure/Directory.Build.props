@@ -3,7 +3,7 @@
 	<Import Project="..\..\Directory.Build.props" />
 
 	<PropertyGroup>
-		<Version>2.1.1</Version>
+		<Version>2.1.2</Version>
 		<PackageIcon>icon.png</PackageIcon>
 		<IsPackable>true</IsPackable>
 	</PropertyGroup>

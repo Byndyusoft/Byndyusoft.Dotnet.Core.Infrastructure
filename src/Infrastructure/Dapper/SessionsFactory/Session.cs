@@ -11,7 +11,7 @@
 
     public class Session : ISession
     {
-        private DbConnection _connection;
+        private DbConnection? _connection;
         private DbTransaction? _transaction;
 
         public Session(DbConnection connection, DbTransaction? transaction)
@@ -27,6 +27,8 @@
             CommandType? commandType = null,
             [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
+            ThrowIfDisposed();
+
             var command = new CommandDefinition(sql, param, _transaction, commandTimeout, commandType,
                 cancellationToken: cancellationToken);
 
@@ -47,6 +49,8 @@
             CommandType? commandType = null,
             CancellationToken cancellationToken = default)
         {
+            ThrowIfDisposed();
+
             var command = new CommandDefinition(sql, param, _transaction, commandTimeout, commandType,
                 cancellationToken: cancellationToken);
             return _connection.QueryAsync<TSource>(command);
@@ -59,6 +63,8 @@
             CommandType? commandType = null,
             CancellationToken cancellationToken = default)
         {
+            ThrowIfDisposed();
+
             var command = new CommandDefinition(sql, param, _transaction, commandTimeout, commandType,
                 cancellationToken: cancellationToken);
             return _connection.ExecuteAsync(command);
@@ -71,6 +77,8 @@
             CommandType? commandType = null,
             CancellationToken cancellationToken = default)
         {
+            ThrowIfDisposed();
+
             var command = new CommandDefinition(sql, param, _transaction, commandTimeout, commandType,
                 cancellationToken: cancellationToken);
             return _connection.ExecuteScalarAsync<TSource>(command);
@@ -86,8 +94,16 @@
             _transaction?.Dispose();
             _transaction = null;
 
-            _connection.Dispose();
+            _connection?.Dispose();
             _connection = null!;
+
+            GC.SuppressFinalize(this);
+        }
+
+        private void ThrowIfDisposed()
+        {
+            if (_connection == null)
+                throw new ObjectDisposedException(nameof(Session));
         }
     }
 }
