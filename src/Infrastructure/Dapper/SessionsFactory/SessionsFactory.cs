@@ -18,6 +18,7 @@
         public ISession Create(IsolationLevel isolationLevel)
         {
             var connection = _dbConnectionsFactory.Create();
+            connection.Open();
             var transaction = connection.BeginTransaction(isolationLevel);
             return new Session(connection, transaction);
         }
